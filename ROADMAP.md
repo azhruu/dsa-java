@@ -1,6 +1,6 @@
 # dsa-java — Build Roadmap
 
-Grows on rotation with my other projects (two commits a day across the account).
+Each item lands as one complete, tested change.
 Each item = one complete, tested structure or feature.
 
 ## Lists & linear structures
