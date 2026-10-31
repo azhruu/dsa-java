@@ -1,5 +1,6 @@
 package com.azhruu.dsa;
 
+import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
 import com.azhruu.dsa.stack.ArrayStack;
@@ -20,6 +21,21 @@ public class Demo {
         list.reverse();
         System.out.println("reversed:    " + list);
         System.out.println("size=" + list.size() + ", contains(15)=" + list.contains(15));
+
+        System.out.println("\n=== DoublyLinkedList ===");
+        DoublyLinkedList<Integer> dlist = new DoublyLinkedList<>();
+        dlist.addLast(10); dlist.addLast(20); dlist.addLast(30);
+        dlist.addFirst(5);
+        System.out.println("forward:       " + dlist);
+        System.out.println("backward:      " + dlist.toReverseString());
+        dlist.addAt(2, 15);
+        System.out.println("addAt(2,15):   " + dlist + " | backward: " + dlist.toReverseString());
+        dlist.remove(20);
+        System.out.println("remove(20):    " + dlist);
+        System.out.println("removeLast ->  " + dlist.removeLast() + ", get(1)=" + dlist.get(1));
+        dlist.reverse();
+        System.out.println("reversed:      " + dlist + " | backward: " + dlist.toReverseString());
+        System.out.println("size=" + dlist.size() + ", contains(15)=" + dlist.contains(15));
 
         System.out.println("\n=== ArrayStack ===");
         ArrayStack<String> stack = new ArrayStack<>();

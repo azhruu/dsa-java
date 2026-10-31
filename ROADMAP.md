@@ -7,7 +7,7 @@ Each item = one complete, tested structure or feature.
 - [x] Singly Linked List (insert/delete/search/reverse)
 - [x] Array Stack (dynamic growth)
 - [x] Circular Array Queue
-- [ ] Doubly Linked List (forward/backward traversal)
+- [x] Doubly Linked List (forward/backward traversal)
 - [ ] Stack & Queue on linked nodes
 - [ ] Priority Queue (sorted linked list)
 
