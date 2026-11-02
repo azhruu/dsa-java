@@ -11,12 +11,12 @@
 | Area | Structures |
 |---|---|
 | Lists | Singly Linked List (insert / delete / search / reverse), Doubly Linked List (forward / backward traversal) |
-| Stacks | Array Stack (dynamic growth) |
-| Queues | Circular Array Queue |
+| Stacks | Array Stack (dynamic growth), Linked Stack (unbounded) |
+| Queues | Circular Array Queue, Linked Queue (unbounded) |
 
 ## Coming next
 
-Linked Stack & Queue → Binary Search Tree → AVL Tree → Heaps → Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+Priority Queue → Binary Search Tree → AVL Tree → Heaps → Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -34,8 +34,8 @@ java -cp out com.azhruu.dsa.Demo
 ```
 src/main/java/com/azhruu/dsa/
 ├── list/    SinglyLinkedList, DoublyLinkedList …
-├── stack/   ArrayStack …
-├── queue/   ArrayQueue …
+├── stack/   ArrayStack, LinkedStack …
+├── queue/   ArrayQueue, LinkedQueue …
 └── Demo.java
 ```
 

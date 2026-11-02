@@ -3,7 +3,9 @@ package com.azhruu.dsa;
 import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
+import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.stack.ArrayStack;
+import com.azhruu.dsa.stack.LinkedStack;
 
 /** Quick demo + smoke test of the structures built so far. */
 public class Demo {
@@ -48,6 +50,18 @@ public class Demo {
         queue.enqueue("Ali"); queue.enqueue("Sara"); queue.enqueue("Bilal");
         System.out.println("queue: " + queue);
         System.out.println("dequeue -> " + queue.dequeue() + ", peek -> " + queue.peek());
+
+        System.out.println("\n=== LinkedStack ===");
+        LinkedStack<String> lstack = new LinkedStack<>();
+        lstack.push("first"); lstack.push("second"); lstack.push("third");
+        System.out.println("stack: " + lstack);
+        System.out.println("pop -> " + lstack.pop() + ", peek -> " + lstack.peek() + ", size=" + lstack.size());
+
+        System.out.println("\n=== LinkedQueue ===");
+        LinkedQueue<String> lqueue = new LinkedQueue<>();
+        lqueue.enqueue("Ali"); lqueue.enqueue("Sara"); lqueue.enqueue("Bilal");
+        System.out.println("queue: " + lqueue);
+        System.out.println("dequeue -> " + lqueue.dequeue() + ", peek -> " + lqueue.peek() + ", size=" + lqueue.size());
 
         System.out.println("\nAll structures working OK");
     }
