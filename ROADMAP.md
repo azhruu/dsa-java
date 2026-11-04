@@ -9,7 +9,7 @@ Each item = one complete, tested structure or feature.
 - [x] Circular Array Queue
 - [x] Doubly Linked List (forward/backward traversal)
 - [x] Stack & Queue on linked nodes
-- [ ] Priority Queue (sorted linked list)
+- [x] Priority Queue (sorted linked list)
 
 ## Trees
 - [ ] Binary Search Tree (insert/search/delete + traversals)

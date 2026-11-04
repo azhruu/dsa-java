@@ -4,6 +4,7 @@ import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
 import com.azhruu.dsa.queue.LinkedQueue;
+import com.azhruu.dsa.queue.PriorityQueue;
 import com.azhruu.dsa.stack.ArrayStack;
 import com.azhruu.dsa.stack.LinkedStack;
 
@@ -62,6 +63,21 @@ public class Demo {
         lqueue.enqueue("Ali"); lqueue.enqueue("Sara"); lqueue.enqueue("Bilal");
         System.out.println("queue: " + lqueue);
         System.out.println("dequeue -> " + lqueue.dequeue() + ", peek -> " + lqueue.peek() + ", size=" + lqueue.size());
+
+        System.out.println("\n=== PriorityQueue ===");
+        PriorityQueue<String> pqueue = new PriorityQueue<>();
+        pqueue.enqueue("low-priority task", 3);
+        pqueue.enqueue("urgent bugfix", 1);
+        pqueue.enqueue("normal feature", 2);
+        pqueue.enqueue("another urgent", 1);
+        System.out.println("queue: " + pqueue);
+        System.out.println("peek -> " + pqueue.peek() + " (p" + pqueue.peekPriority() + ")");
+        System.out.print("drain order: ");
+        while (!pqueue.isEmpty()) {
+            System.out.print(pqueue.dequeue());
+            if (!pqueue.isEmpty()) System.out.print(" -> ");
+        }
+        System.out.println(" (size=" + pqueue.size() + ")");
 
         System.out.println("\nAll structures working OK");
     }
