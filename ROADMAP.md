@@ -12,7 +12,7 @@ Each item = one complete, tested structure or feature.
 - [x] Priority Queue (sorted linked list)
 
 ## Trees
-- [ ] Binary Search Tree (insert/search/delete + traversals)
+- [x] Binary Search Tree (insert/search/delete + traversals)
 - [ ] AVL Tree (rotations, self-balancing insert)
 - [ ] Max/Min Heap (insert, extract, heapify)
 - [ ] Heap Sort

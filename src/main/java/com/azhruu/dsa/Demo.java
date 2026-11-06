@@ -7,6 +7,7 @@ import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.queue.PriorityQueue;
 import com.azhruu.dsa.stack.ArrayStack;
 import com.azhruu.dsa.stack.LinkedStack;
+import com.azhruu.dsa.tree.BinarySearchTree;
 
 /** Quick demo + smoke test of the structures built so far. */
 public class Demo {
@@ -78,6 +79,25 @@ public class Demo {
             if (!pqueue.isEmpty()) System.out.print(" -> ");
         }
         System.out.println(" (size=" + pqueue.size() + ")");
+
+        System.out.println("\n=== BinarySearchTree ===");
+        BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+        int[] keys = {50, 30, 70, 20, 40, 60, 80, 35};
+        for (int k : keys) bst.insert(k);
+        System.out.println("in-order:  " + bst.inOrder());
+        System.out.println("pre-order: " + bst.preOrder());
+        System.out.println("post-order:" + bst.postOrder());
+        System.out.println("min=" + bst.min() + ", max=" + bst.max()
+                + ", height=" + bst.height() + ", size=" + bst.size());
+        System.out.println("contains(35)=" + bst.contains(35) + ", contains(99)=" + bst.contains(99));
+        System.out.println("duplicate insert(40) -> " + bst.insert(40) + " (size=" + bst.size() + ")");
+        bst.delete(20); // leaf
+        System.out.println("delete leaf 20:      " + bst.inOrder());
+        bst.delete(30); // one child (40 -> 35)
+        System.out.println("delete one-child 30: " + bst.inOrder());
+        bst.delete(50); // two children (root)
+        System.out.println("delete root 50:      " + bst.inOrder());
+        System.out.println("delete missing 99 -> " + bst.delete(99) + " (size=" + bst.size() + ")");
 
         System.out.println("\nAll structures working OK");
     }
