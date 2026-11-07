@@ -7,6 +7,7 @@ import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.queue.PriorityQueue;
 import com.azhruu.dsa.stack.ArrayStack;
 import com.azhruu.dsa.stack.LinkedStack;
+import com.azhruu.dsa.tree.AvlTree;
 import com.azhruu.dsa.tree.BinarySearchTree;
 
 /** Quick demo + smoke test of the structures built so far. */
@@ -98,6 +99,43 @@ public class Demo {
         bst.delete(50); // two children (root)
         System.out.println("delete root 50:      " + bst.inOrder());
         System.out.println("delete missing 99 -> " + bst.delete(99) + " (size=" + bst.size() + ")");
+
+        System.out.println("\n=== AvlTree ===");
+        // One rotation case each: LL (30,20,10), RR (10,20,30),
+        // LR (30,10,20), RL (10,30,20).
+        int[][] cases = {{30, 20, 10}, {10, 20, 30}, {30, 10, 20}, {10, 30, 20}};
+        String[] names = {"LL", "RR", "LR", "RL"};
+        for (int c = 0; c < cases.length; c++) {
+            AvlTree<Integer> avl = new AvlTree<>();
+            for (int k : cases[c]) avl.insert(k);
+            System.out.println(names[c] + " case " + java.util.Arrays.toString(cases[c])
+                    + " -> in-order " + avl.inOrder()
+                    + ", height=" + avl.height()
+                    + ", balanced=" + avl.isBalanced()
+                    + ", rotations=" + avl.getRotationCount());
+        }
+        // Sorted input: a plain BST would become a 9-high chain; the AVL
+        // tree must stay logarithmic.
+        AvlTree<Integer> avl = new AvlTree<>();
+        BinarySearchTree<Integer> plain = new BinarySearchTree<>();
+        for (int k = 10; k <= 100; k += 10) {
+            avl.insert(k);
+            plain.insert(k);
+        }
+        System.out.println("sorted 10..100: AVL height=" + avl.height()
+                + " (BST height=" + plain.height() + ")"
+                + ", balanced=" + avl.isBalanced()
+                + ", rotations=" + avl.getRotationCount());
+        System.out.println("in-order:  " + avl.inOrder());
+        System.out.println("min=" + avl.min() + ", max=" + avl.max()
+                + ", contains(50)=" + avl.contains(50) + ", contains(55)=" + avl.contains(55));
+        System.out.println("duplicate insert(50) -> " + avl.insert(50) + " (size=" + avl.size() + ")");
+        avl.delete(100); // leaf
+        avl.delete(20);  // one child
+        avl.delete(50);  // two children (root)
+        System.out.println("after deletes: " + avl.inOrder()
+                + ", height=" + avl.height() + ", balanced=" + avl.isBalanced());
+        System.out.println("delete missing 99 -> " + avl.delete(99) + " (size=" + avl.size() + ")");
 
         System.out.println("\nAll structures working OK");
     }

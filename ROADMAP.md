@@ -13,7 +13,7 @@ Each item = one complete, tested structure or feature.
 
 ## Trees
 - [x] Binary Search Tree (insert/search/delete + traversals)
-- [ ] AVL Tree (rotations, self-balancing insert)
+- [x] AVL Tree (rotations, self-balancing insert)
 - [ ] Max/Min Heap (insert, extract, heapify)
 - [ ] Heap Sort
 
