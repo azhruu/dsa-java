@@ -14,10 +14,11 @@
 | Stacks | Array Stack (dynamic growth), Linked Stack (unbounded) |
 | Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
+| Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
 
 ## Coming next
 
-Heaps → Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+Heap Sort → Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -38,6 +39,7 @@ src/main/java/com/azhruu/dsa/
 ├── stack/   ArrayStack, LinkedStack …
 ├── queue/   ArrayQueue, LinkedQueue, PriorityQueue …
 ├── tree/    BinarySearchTree, AvlTree …
+├── heap/    Heap (max/min) …
 └── Demo.java
 ```
 

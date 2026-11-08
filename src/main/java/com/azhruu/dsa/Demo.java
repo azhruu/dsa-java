@@ -1,5 +1,6 @@
 package com.azhruu.dsa;
 
+import com.azhruu.dsa.heap.Heap;
 import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
@@ -136,6 +137,48 @@ public class Demo {
         System.out.println("after deletes: " + avl.inOrder()
                 + ", height=" + avl.height() + ", balanced=" + avl.isBalanced());
         System.out.println("delete missing 99 -> " + avl.delete(99) + " (size=" + avl.size() + ")");
+
+        System.out.println("\n=== MaxHeap ===");
+        Heap<Integer> maxHeap = Heap.maxHeap();
+        for (int k : keys) maxHeap.insert(k);
+        System.out.println("heap (array layout): " + maxHeap);
+        System.out.println("peek -> " + maxHeap.peek() + ", valid=" + maxHeap.isValid()
+                + ", size=" + maxHeap.size());
+        System.out.println("extract -> " + maxHeap.extract() + ", heap now: " + maxHeap
+                + ", valid=" + maxHeap.isValid());
+        System.out.print("drain order: ");
+        while (!maxHeap.isEmpty()) {
+            System.out.print(maxHeap.extract());
+            if (!maxHeap.isEmpty()) System.out.print(" -> ");
+        }
+        System.out.println(" (empty=" + maxHeap.isEmpty() + ")");
+
+        System.out.println("\n=== MinHeap ===");
+        Heap<Integer> minHeap = Heap.minHeap();
+        for (int k : keys) minHeap.insert(k);
+        System.out.println("heap (array layout): " + minHeap);
+        System.out.println("peek -> " + minHeap.peek() + ", valid=" + minHeap.isValid());
+        System.out.print("drain order: ");
+        while (!minHeap.isEmpty()) {
+            System.out.print(minHeap.extract());
+            if (!minHeap.isEmpty()) System.out.print(" -> ");
+        }
+        System.out.println();
+
+        System.out.println("\n=== Heapify (O(n) build) ===");
+        Integer[] raw = {9, 4, 7, 1, 8, 3};
+        Heap<Integer> built = Heap.heapifyMax(raw);
+        System.out.println("heapifyMax{9,4,7,1,8,3}: " + built
+                + ", peek=" + built.peek() + ", valid=" + built.isValid());
+        System.out.println("input untouched: " + java.util.Arrays.toString(raw));
+        Heap<Integer> builtMin = Heap.heapifyMin(raw);
+        System.out.println("heapifyMin{9,4,7,1,8,3}: " + builtMin
+                + ", peek=" + builtMin.peek() + ", valid=" + builtMin.isValid());
+        // 40 inserts force the backing array past its initial capacity.
+        Heap<Integer> big = Heap.minHeap();
+        for (int i = 40; i >= 1; i--) big.insert(i);
+        System.out.println("40 inserts (growth): size=" + big.size()
+                + ", peek=" + big.peek() + ", valid=" + big.isValid());
 
         System.out.println("\nAll structures working OK");
     }
