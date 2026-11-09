@@ -15,10 +15,11 @@
 | Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
 | Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
+| Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts) |
 
 ## Coming next
 
-Heap Sort → Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+Hash Table (chaining) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -40,6 +41,7 @@ src/main/java/com/azhruu/dsa/
 ├── queue/   ArrayQueue, LinkedQueue, PriorityQueue …
 ├── tree/    BinarySearchTree, AvlTree …
 ├── heap/    Heap (max/min) …
+├── sort/    HeapSort …
 └── Demo.java
 ```
 

@@ -6,6 +6,7 @@ import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
 import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.queue.PriorityQueue;
+import com.azhruu.dsa.sort.HeapSort;
 import com.azhruu.dsa.stack.ArrayStack;
 import com.azhruu.dsa.stack.LinkedStack;
 import com.azhruu.dsa.tree.AvlTree;
@@ -179,6 +180,39 @@ public class Demo {
         for (int i = 40; i >= 1; i--) big.insert(i);
         System.out.println("40 inserts (growth): size=" + big.size()
                 + ", peek=" + big.peek() + ", valid=" + big.isValid());
+
+        System.out.println("\n=== HeapSort ===");
+        Integer[] unsorted = {42, 7, 19, 3, 88, 15, 64, 27};
+        HeapSort.sort(unsorted);
+        System.out.println("sort{42,7,19,3,88,15,64,27}: " + java.util.Arrays.toString(unsorted)
+                + " (comparisons=" + HeapSort.lastComparisons()
+                + ", swaps=" + HeapSort.lastSwaps() + ")");
+        // Worst case for heap sort is still O(n log n): reverse-sorted input.
+        Integer[] reversed = {90, 80, 70, 60, 50, 40, 30, 20, 10};
+        HeapSort.sort(reversed);
+        System.out.println("sort reverse 90..10: " + java.util.Arrays.toString(reversed)
+                + ", sorted=" + HeapSort.isSorted(reversed));
+        Integer[] already = {1, 2, 3, 4, 5};
+        HeapSort.sort(already);
+        System.out.println("sort already sorted: " + java.util.Arrays.toString(already)
+                + " (comparisons=" + HeapSort.lastComparisons() + ")");
+        HeapSort.sortDescending(already);
+        System.out.println("sortDescending:      " + java.util.Arrays.toString(already));
+        Integer[] original = {5, 2, 9, 1};
+        Integer[] copy = HeapSort.sortedCopy(original);
+        System.out.println("sortedCopy{5,2,9,1}: " + java.util.Arrays.toString(copy)
+                + ", input untouched: " + java.util.Arrays.toString(original));
+        Integer[] one = {7};
+        HeapSort.sort(one);
+        System.out.println("single element: " + java.util.Arrays.toString(one)
+                + ", isSorted=" + HeapSort.isSorted(one));
+        Integer[] empty = {};
+        HeapSort.sort(empty);
+        System.out.println("empty array: sorted=" + HeapSort.isSorted(empty)
+                + " (size=" + empty.length + ")");
+        String[] words = {"pear", "apple", "fig", "banana"};
+        HeapSort.sort(words);
+        System.out.println("sort strings: " + java.util.Arrays.toString(words));
 
         System.out.println("\nAll structures working OK");
     }
