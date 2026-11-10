@@ -1,5 +1,6 @@
 package com.azhruu.dsa;
 
+import com.azhruu.dsa.hash.HashTable;
 import com.azhruu.dsa.heap.Heap;
 import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
@@ -213,6 +214,36 @@ public class Demo {
         String[] words = {"pear", "apple", "fig", "banana"};
         HeapSort.sort(words);
         System.out.println("sort strings: " + java.util.Arrays.toString(words));
+
+        System.out.println("\n=== HashTable (separate chaining) ===");
+        // 1, 17 and 33 all hash to bucket 1 at capacity 16: a real collision chain.
+        HashTable<Integer, String> table = new HashTable<>();
+        table.put(1, "one"); table.put(17, "seventeen"); table.put(33, "thirty-three");
+        table.put(5, "five");
+        System.out.println("buckets: " + table);
+        System.out.println("chain at bucket 1: length=" + table.chainLength(1)
+                + ", get(17)=" + table.get(17) + ", get(33)=" + table.get(33));
+        System.out.println("get missing 99 -> " + table.get(99)
+                + ", containsKey(5)=" + table.containsKey(5)
+                + ", containsValue(\"five\")=" + table.containsValue("five"));
+        System.out.println("overwrite put(5,\"FIVE\") -> old=" + table.put(5, "FIVE")
+                + ", get(5)=" + table.get(5) + " (size=" + table.size() + ")");
+        System.out.println("remove(17) -> " + table.remove(17)
+                + ", remove missing 99 -> " + table.remove(99));
+        System.out.println("after remove: " + table);
+        // 13 entries push the load past 0.75, so the table rehashes 16 -> 32.
+        HashTable<String, Integer> grown = new HashTable<>();
+        String[] words2 = {"alpha", "bravo", "charlie", "delta", "echo", "foxtrot",
+                "golf", "hotel", "india", "juliet", "kilo", "lima", "mike"};
+        for (int i = 0; i < words2.length; i++) grown.put(words2[i], i + 1);
+        System.out.println("13 puts: capacity=" + grown.capacity()
+                + ", size=" + grown.size()
+                + ", load=" + String.format("%.2f", grown.loadFactor()));
+        System.out.println("get(\"golf\")=" + grown.get("golf") + ", get(\"mike\")=" + grown.get("mike"));
+        System.out.println("keys: " + grown.keys());
+        HashTable<String, String> emptyTable = new HashTable<>();
+        System.out.println("empty: isEmpty=" + emptyTable.isEmpty()
+                + ", size=" + emptyTable.size() + ", " + emptyTable);
 
         System.out.println("\nAll structures working OK");
     }

@@ -18,7 +18,7 @@ Each item = one complete, tested structure or feature.
 - [x] Heap Sort
 
 ## Hashing
-- [ ] Hash Table with separate chaining
+- [x] Hash Table with separate chaining
 - [ ] Hash Table with open addressing (linear probing)
 
 ## Graphs
