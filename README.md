@@ -15,12 +15,12 @@
 | Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
 | Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
-| Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load) |
+| Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts) |
 
 ## Coming next
 
-Hash Table (open addressing) → Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -42,7 +42,7 @@ src/main/java/com/azhruu/dsa/
 ├── queue/   ArrayQueue, LinkedQueue, PriorityQueue …
 ├── tree/    BinarySearchTree, AvlTree …
 ├── heap/    Heap (max/min) …
-├── hash/    HashTable (separate chaining) …
+├── hash/    HashTable (separate chaining), OpenAddressingHashTable (linear probing) …
 ├── sort/    HeapSort …
 └── Demo.java
 ```

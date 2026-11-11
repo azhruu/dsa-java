@@ -1,6 +1,7 @@
 package com.azhruu.dsa;
 
 import com.azhruu.dsa.hash.HashTable;
+import com.azhruu.dsa.hash.OpenAddressingHashTable;
 import com.azhruu.dsa.heap.Heap;
 import com.azhruu.dsa.list.DoublyLinkedList;
 import com.azhruu.dsa.list.SinglyLinkedList;
@@ -244,6 +245,43 @@ public class Demo {
         HashTable<String, String> emptyTable = new HashTable<>();
         System.out.println("empty: isEmpty=" + emptyTable.isEmpty()
                 + ", size=" + emptyTable.size() + ", " + emptyTable);
+
+        System.out.println("\n=== OpenAddressingHashTable (linear probing) ===");
+        // 1, 17 and 33 all hash to slot 1 at capacity 16: linear probing
+        // must walk them to slots 1, 2 and 3 instead of chaining them.
+        OpenAddressingHashTable<Integer, String> probe = new OpenAddressingHashTable<>();
+        probe.put(1, "one");
+        System.out.println("put(1):  probes=" + probe.lastProbes());
+        probe.put(17, "seventeen");
+        System.out.println("put(17): probes=" + probe.lastProbes() + " (collided with 1, walked to slot 2)");
+        probe.put(33, "thirty-three");
+        System.out.println("put(33): probes=" + probe.lastProbes() + " (walked to slot 3)");
+        probe.put(5, "five");
+        System.out.println("table: " + probe);
+        System.out.println("get(17)=" + probe.get(17) + " (probes=" + probe.lastProbes() + ")"
+                + ", get(33)=" + probe.get(33) + ", get missing 99 -> " + probe.get(99));
+        System.out.println("containsKey(5)=" + probe.containsKey(5)
+                + ", containsValue(\"five\")=" + probe.containsValue("five"));
+        System.out.println("overwrite put(5,\"FIVE\") -> old=" + probe.put(5, "FIVE")
+                + ", get(5)=" + probe.get(5) + " (size=" + probe.size() + ")");
+        // The tombstone test: removing 17 must not hide 33, which probed past it.
+        System.out.println("remove(17) -> " + probe.remove(17)
+                + ", tombstones=" + probe.tombstoneCount()
+                + ", get(33) still=" + probe.get(33) + " (probes=" + probe.lastProbes() + ")");
+        System.out.println("remove missing 99 -> " + probe.remove(99));
+        System.out.println("after remove: " + probe);
+        // 13 entries push the load past 0.7, so the table rehashes 16 -> 32
+        // and the tombstone is dropped in the process.
+        OpenAddressingHashTable<String, Integer> grownProbe = new OpenAddressingHashTable<>();
+        for (int i = 0; i < words2.length; i++) grownProbe.put(words2[i], i + 1);
+        System.out.println("13 puts: capacity=" + grownProbe.capacity()
+                + ", size=" + grownProbe.size()
+                + ", load=" + String.format("%.2f", grownProbe.loadFactor()));
+        System.out.println("get(\"golf\")=" + grownProbe.get("golf") + ", get(\"mike\")=" + grownProbe.get("mike"));
+        System.out.println("keys: " + grownProbe.keys());
+        OpenAddressingHashTable<String, String> emptyProbe = new OpenAddressingHashTable<>();
+        System.out.println("empty: isEmpty=" + emptyProbe.isEmpty()
+                + ", size=" + emptyProbe.size() + ", " + emptyProbe);
 
         System.out.println("\nAll structures working OK");
     }

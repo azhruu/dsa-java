@@ -19,7 +19,7 @@ Each item = one complete, tested structure or feature.
 
 ## Hashing
 - [x] Hash Table with separate chaining
-- [ ] Hash Table with open addressing (linear probing)
+- [x] Hash Table with open addressing (linear probing)
 
 ## Graphs
 - [ ] Graph (adjacency list) + BFS
