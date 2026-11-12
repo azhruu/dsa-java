@@ -1,5 +1,6 @@
 package com.azhruu.dsa;
 
+import com.azhruu.dsa.graph.Graph;
 import com.azhruu.dsa.hash.HashTable;
 import com.azhruu.dsa.hash.OpenAddressingHashTable;
 import com.azhruu.dsa.heap.Heap;
@@ -282,6 +283,45 @@ public class Demo {
         OpenAddressingHashTable<String, String> emptyProbe = new OpenAddressingHashTable<>();
         System.out.println("empty: isEmpty=" + emptyProbe.isEmpty()
                 + ", size=" + emptyProbe.size() + ", " + emptyProbe);
+
+        System.out.println("\n=== Graph (adjacency list) + BFS ===");
+        Graph<String> graph = new Graph<>();
+        graph.addEdge("A", "B"); graph.addEdge("A", "C");
+        graph.addEdge("B", "D"); graph.addEdge("C", "D"); graph.addEdge("C", "E");
+        graph.addEdge("D", "F"); graph.addEdge("E", "F");
+        graph.addVertex("G"); // isolated: no edges, unreachable from A
+        System.out.println("adjacency list:\n" + graph);
+        System.out.println("vertices=" + graph.vertexCount() + ", edges=" + graph.edgeCount()
+                + ", hasEdge(A,B)=" + graph.hasEdge("A", "B")
+                + ", hasEdge(A,D)=" + graph.hasEdge("A", "D"));
+        System.out.println("neighbours(C)=" + graph.neighbors("C") + ", degree(C)=" + graph.degree("C"));
+        System.out.println("bfs(A):         " + graph.bfs("A"));
+        System.out.println("distances(A):   " + graph.bfsDistances("A"));
+        System.out.println("path A -> F:    " + graph.bfsPath("A", "F") + " (shortest: 3 edges)");
+        System.out.println("path A -> G:    " + graph.bfsPath("A", "G") + " (unreachable)");
+        graph.addEdge("A", "B"); // duplicate: ignored, no parallel edge
+        System.out.println("duplicate addEdge(A,B): edges still=" + graph.edgeCount()
+                + ", duplicate addVertex(A) -> " + graph.addVertex("A"));
+        graph.removeEdge("C", "E");
+        System.out.println("removeEdge(C,E): edges=" + graph.edgeCount()
+                + ", bfs(A) now " + graph.bfs("A"));
+        graph.removeVertex("E");
+        System.out.println("removeVertex(E): vertices=" + graph.vertexCount()
+                + ", edges=" + graph.edgeCount() + ", hasVertex(E)=" + graph.hasVertex("E"));
+        // Directed: edges only go one way, so Z is a dead end from X.
+        Graph<String> directed = new Graph<>(true);
+        directed.addEdge("X", "Y"); directed.addEdge("Y", "Z"); directed.addEdge("X", "Z");
+        System.out.println("directed: bfs(X)=" + directed.bfs("X")
+                + ", bfs(Z)=" + directed.bfs("Z")
+                + ", path X -> Z: " + directed.bfsPath("X", "Z"));
+        try {
+            graph.bfs("missing");
+        } catch (IllegalArgumentException e) {
+            System.out.println("bfs(missing) -> " + e.getMessage());
+        }
+        Graph<String> emptyGraph = new Graph<>();
+        System.out.println("empty graph: isEmpty=" + emptyGraph.isEmpty()
+                + ", vertices=" + emptyGraph.vertexCount() + ", edges=" + emptyGraph.edgeCount());
 
         System.out.println("\nAll structures working OK");
     }

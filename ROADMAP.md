@@ -22,7 +22,7 @@ Each item = one complete, tested structure or feature.
 - [x] Hash Table with open addressing (linear probing)
 
 ## Graphs
-- [ ] Graph (adjacency list) + BFS
+- [x] Graph (adjacency list) + BFS
 - [ ] DFS + cycle detection
 - [ ] Dijkstra shortest path
 

@@ -17,10 +17,11 @@
 | Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts) |
+| Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths) |
 
 ## Coming next
 
-Graph (adjacency list, BFS/DFS) → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+DFS + cycle detection → Dijkstra shortest path → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -44,6 +45,7 @@ src/main/java/com/azhruu/dsa/
 ├── heap/    Heap (max/min) …
 ├── hash/    HashTable (separate chaining), OpenAddressingHashTable (linear probing) …
 ├── sort/    HeapSort …
+├── graph/   Graph (adjacency list, BFS) …
 └── Demo.java
 ```
 
