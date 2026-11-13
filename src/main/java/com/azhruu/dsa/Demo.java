@@ -323,6 +323,45 @@ public class Demo {
         System.out.println("empty graph: isEmpty=" + emptyGraph.isEmpty()
                 + ", vertices=" + emptyGraph.vertexCount() + ", edges=" + emptyGraph.edgeCount());
 
+        System.out.println("\n=== Graph DFS + cycle detection ===");
+        // Same diamond as the BFS demo, plus isolated G.
+        Graph<String> dfsGraph = new Graph<>();
+        dfsGraph.addEdge("A", "B"); dfsGraph.addEdge("A", "C");
+        dfsGraph.addEdge("B", "D"); dfsGraph.addEdge("C", "D"); dfsGraph.addEdge("C", "E");
+        dfsGraph.addEdge("D", "F"); dfsGraph.addEdge("E", "F");
+        dfsGraph.addVertex("G");
+        System.out.println("dfs(A):         " + dfsGraph.dfs("A")
+                + " (dives B -> D -> C -> E before F)");
+        System.out.println("dfs forest:     " + dfsGraph.dfsForest() + " (isolated G included)");
+        System.out.println("dfs path A->F:  " + dfsGraph.dfsPath("A", "F") + " (not the shortest: BFS gave 3 edges)");
+        System.out.println("dfs path A->G:  " + dfsGraph.dfsPath("A", "G") + " (unreachable)");
+        System.out.println("hasCycle:       " + dfsGraph.hasCycle() + " (A-B-D-C-A closes a loop)");
+        // A tree has no cycle: DFS order and the cycle check agree.
+        Graph<String> tree = new Graph<>();
+        tree.addEdge("A", "B"); tree.addEdge("A", "C"); tree.addEdge("B", "D");
+        System.out.println("tree dfs(A):    " + tree.dfs("A") + ", hasCycle=" + tree.hasCycle());
+        // Directed: a loop X -> Y -> Z -> X is a cycle; X -> Y -> Z is not.
+        Graph<String> cyclic = new Graph<>(true);
+        cyclic.addEdge("X", "Y"); cyclic.addEdge("Y", "Z"); cyclic.addEdge("Z", "X");
+        System.out.println("directed cycle: dfs(X)=" + cyclic.dfs("X")
+                + ", hasCycle=" + cyclic.hasCycle());
+        Graph<String> dag = new Graph<>(true);
+        dag.addEdge("X", "Y"); dag.addEdge("Y", "Z"); dag.addEdge("X", "Z");
+        System.out.println("directed acyclic: dfs(X)=" + dag.dfs("X")
+                + ", hasCycle=" + dag.hasCycle());
+        // A self-loop is a cycle of one vertex.
+        Graph<String> loop = new Graph<>();
+        loop.addEdge("S", "S");
+        System.out.println("self-loop: hasCycle=" + loop.hasCycle() + ", dfs(S)=" + loop.dfs("S"));
+        Graph<String> emptyCycle = new Graph<>();
+        System.out.println("empty graph: hasCycle=" + emptyCycle.hasCycle()
+                + ", dfs forest=" + emptyCycle.dfsForest());
+        try {
+            dfsGraph.dfs("missing");
+        } catch (IllegalArgumentException e) {
+            System.out.println("dfs(missing) -> " + e.getMessage());
+        }
+
         System.out.println("\nAll structures working OK");
     }
 }

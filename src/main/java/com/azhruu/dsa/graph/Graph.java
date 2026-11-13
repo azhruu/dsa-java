@@ -1,6 +1,7 @@
 package com.azhruu.dsa.graph;
 
 import com.azhruu.dsa.queue.ArrayQueue;
+import com.azhruu.dsa.stack.ArrayStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +26,18 @@ import java.util.Set;
  * so the first time a vertex is reached is via a shortest path (fewest
  * edges). The BFS work queue is this project's own {@code ArrayQueue};
  * maps and sets are only the bookkeeping around it.
+ *
+ * <p>Depth-first search is also O(V + E). It dives down one branch as
+ * far as it goes before backtracking, which makes it the natural tool
+ * for cycle detection: a graph has a cycle exactly when a DFS meets an
+ * edge back to a vertex still on its current path. The DFS here is
+ * iterative and runs on this project's own {@code ArrayStack}, and it
+ * visits neighbours in edge-add order, so its order matches the
+ * recursive textbook DFS. Cycle detection uses the classic three-colour
+ * walk (white = unvisited, grey = on the current path, black = done):
+ * in a directed graph any edge to a grey vertex is a cycle; in an
+ * undirected graph the edge back to the parent is the one just walked
+ * and does not count.
  */
 public class Graph<T> {
 
@@ -190,6 +203,153 @@ public class Graph<T> {
             }
         }
         return new BfsResult<>(order, parent, distances);
+    }
+
+    /**
+     * Depth-first traversal from {@code start}: vertices in the order
+     * they are first reached, diving down one branch before
+     * backtracking. O(V + E). Neighbours are visited in edge-add order,
+     * so the order matches the recursive textbook DFS. Only the
+     * component reachable from {@code start} is visited -- see
+     * {@link #dfsForest()} for the whole graph.
+     */
+    public List<T> dfs(T start) {
+        return dfsWithParents(start).order;
+    }
+
+    /**
+     * Depth-first traversal of the whole graph: every component in
+     * vertex-add order, so isolated vertices are visited too. O(V + E).
+     */
+    public List<T> dfsForest() {
+        List<T> order = new ArrayList<>();
+        Set<T> visited = new HashSet<>();
+        for (T vertex : adjacency.keySet()) {
+            if (!visited.contains(vertex)) {
+                List<T> component = new ArrayList<>();
+                Map<T, T> parent = new HashMap<>();
+                dfsFrom(vertex, visited, parent, component);
+                order.addAll(component);
+            }
+        }
+        return order;
+    }
+
+    /**
+     * A path from {@code start} to {@code goal} found by DFS, or an
+     * empty list when no path exists. The endpoints are included. Unlike
+     * {@link #bfsPath(T, T)} this is not necessarily the shortest path --
+     * DFS follows one branch to its end before trying the next.
+     */
+    public List<T> dfsPath(T start, T goal) {
+        if (goal == null || !adjacency.containsKey(goal))
+            throw new IllegalArgumentException("unknown vertex: " + goal);
+        DfsResult<T> result = dfsWithParents(start);
+        if (!result.parent.containsKey(goal)) return new ArrayList<>();
+        List<T> path = new ArrayList<>();
+        T current = goal;
+        while (current != null) {
+            path.add(0, current);
+            current = result.parent.get(current);
+        }
+        return path;
+    }
+
+    /**
+     * True when the graph contains a cycle: a self-loop, two vertices
+     * joined by two different paths (undirected), or a directed loop
+     * back to a vertex still on the DFS path. O(V + E). A tree -- or any
+     * directed acyclic graph -- returns false.
+     */
+    public boolean hasCycle() {
+        Map<T, Integer> colour = new HashMap<>(); // 1 = grey, 2 = black
+        for (T vertex : adjacency.keySet()) {
+            if (!colour.containsKey(vertex) && hasCycleFrom(vertex, null, colour)) return true;
+        }
+        return false;
+    }
+
+    /** One DFS pass from {@code start}, keeping the visit order and each vertex's parent. */
+    private DfsResult<T> dfsWithParents(T start) {
+        if (start == null || !adjacency.containsKey(start))
+            throw new IllegalArgumentException("unknown vertex: " + start);
+        List<T> order = new ArrayList<>();
+        Map<T, T> parent = new HashMap<>();
+        Set<T> visited = new HashSet<>();
+        dfsFrom(start, visited, parent, order);
+        return new DfsResult<>(order, parent);
+    }
+
+    /**
+     * Iterative DFS from {@code start} on this project's own
+     * {@code ArrayStack}. A plain stack of vertices cannot reproduce
+     * the recursive visit order (a vertex pushed from two parents is
+     * popped before its earlier sibling is explored), so the stack
+     * holds one frame per vertex on the current path, each remembering
+     * which neighbour to try next -- the iterative form of the call
+     * stack. A vertex is recorded in the visit order the first time
+     * its frame reaches the top, and the frame is popped only once
+     * every neighbour has been tried, which is exactly the recursive
+     * textbook DFS: dive down one branch, backtrack, then try the
+     * next sibling.
+     */
+    private void dfsFrom(T start, Set<T> visited, Map<T, T> parent, List<T> order) {
+        ArrayStack<DfsFrame<T>> stack = new ArrayStack<>();
+        visited.add(start);
+        parent.put(start, null);
+        stack.push(new DfsFrame<>(start));
+        while (!stack.isEmpty()) {
+            DfsFrame<T> frame = stack.peek();
+            if (frame.nextNeighbour == 0) order.add(frame.vertex);
+            List<T> neighbours = adjacency.get(frame.vertex);
+            if (frame.nextNeighbour < neighbours.size()) {
+                T neighbour = neighbours.get(frame.nextNeighbour++);
+                if (visited.add(neighbour)) {
+                    parent.put(neighbour, frame.vertex);
+                    stack.push(new DfsFrame<>(neighbour));
+                }
+            } else {
+                stack.pop(); // every neighbour tried: backtrack
+            }
+        }
+    }
+
+    /** One frame of the iterative DFS: a vertex plus its next neighbour to try. */
+    private static class DfsFrame<T> {
+        final T vertex;
+        int nextNeighbour;
+        DfsFrame(T vertex) {
+            this.vertex = vertex;
+            this.nextNeighbour = 0;
+        }
+    }
+
+    /**
+     * Three-colour cycle walk: grey vertices are on the current DFS
+     * path, black ones are finished. An edge to a grey vertex closes a
+     * cycle -- except, in an undirected graph, the edge back to the
+     * parent, which is the edge just walked. A self-loop is an edge to
+     * a grey vertex that is not the parent, so it is caught too.
+     */
+    private boolean hasCycleFrom(T current, T parent, Map<T, Integer> colour) {
+        colour.put(current, 1); // grey: on the current path
+        for (T neighbour : adjacency.get(current)) {
+            if (!directed && neighbour.equals(parent)) continue;
+            Integer seen = colour.get(neighbour);
+            if (seen != null && seen == 1) return true; // back to the current path
+            if (seen == null && hasCycleFrom(neighbour, current, colour)) return true;
+        }
+        colour.put(current, 2); // black: finished
+        return false;
+    }
+
+    private static class DfsResult<T> {
+        final List<T> order;
+        final Map<T, T> parent;
+        DfsResult(List<T> order, Map<T, T> parent) {
+            this.order = order;
+            this.parent = parent;
+        }
     }
 
     private static class BfsResult<T> {

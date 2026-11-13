@@ -23,7 +23,7 @@ Each item = one complete, tested structure or feature.
 
 ## Graphs
 - [x] Graph (adjacency list) + BFS
-- [ ] DFS + cycle detection
+- [x] DFS + cycle detection
 - [ ] Dijkstra shortest path
 
 ## Utilities & polish
