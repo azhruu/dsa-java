@@ -24,7 +24,7 @@ Each item = one complete, tested structure or feature.
 ## Graphs
 - [x] Graph (adjacency list) + BFS
 - [x] DFS + cycle detection
-- [ ] Dijkstra shortest path
+- [x] Dijkstra shortest path
 
 ## Utilities & polish
 - [ ] Sorting utilities (merge/quick/heap sort with timing demo)

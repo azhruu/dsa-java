@@ -1,6 +1,7 @@
 package com.azhruu.dsa;
 
 import com.azhruu.dsa.graph.Graph;
+import com.azhruu.dsa.graph.WeightedGraph;
 import com.azhruu.dsa.hash.HashTable;
 import com.azhruu.dsa.hash.OpenAddressingHashTable;
 import com.azhruu.dsa.heap.Heap;
@@ -361,6 +362,54 @@ public class Demo {
         } catch (IllegalArgumentException e) {
             System.out.println("dfs(missing) -> " + e.getMessage());
         }
+
+        System.out.println("\n=== WeightedGraph + Dijkstra ===");
+        WeightedGraph<String> wgraph = new WeightedGraph<>();
+        wgraph.addEdge("A", "B", 4); wgraph.addEdge("A", "C", 2);
+        wgraph.addEdge("C", "B", 1); wgraph.addEdge("B", "D", 5);
+        wgraph.addEdge("C", "D", 8); wgraph.addEdge("C", "E", 10);
+        wgraph.addEdge("D", "E", 2); wgraph.addEdge("D", "F", 6);
+        wgraph.addEdge("E", "F", 3);
+        wgraph.addVertex("G"); // isolated: unreachable from A
+        System.out.println("weighted adjacency list:\n" + wgraph);
+        System.out.println("vertices=" + wgraph.vertexCount() + ", edges=" + wgraph.edgeCount()
+                + ", weight(A,B)=" + wgraph.weight("A", "B")
+                + ", weight(A,D)=" + wgraph.weight("A", "D") + " (no edge)");
+        System.out.println("neighbours(C)=" + wgraph.neighbors("C") + ", degree(C)=" + wgraph.degree("C"));
+        System.out.println("distances(A):   " + wgraph.dijkstraDistances("A")
+                + " (B=3 via C, not 4 direct)");
+        System.out.println("path A -> F:    " + wgraph.dijkstraPath("A", "F")
+                + " (cost 13: A-C-B-D-E-F)");
+        System.out.println("path A -> E:    " + wgraph.dijkstraPath("A", "E") + " (cost 10)");
+        System.out.println("path A -> G:    " + wgraph.dijkstraPath("A", "G") + " (unreachable)");
+        wgraph.addEdge("A", "B", 9); // duplicate: ignored, weight stays 4
+        System.out.println("duplicate addEdge(A,B,9): weight(A,B) still=" + wgraph.weight("A", "B"));
+        wgraph.setWeight("A", "B", 1);
+        System.out.println("setWeight(A,B,1): distances(A) now " + wgraph.dijkstraDistances("A")
+                + ", path A -> F now " + wgraph.dijkstraPath("A", "F") + " (cost 11)");
+        wgraph.removeEdge("C", "D");
+        System.out.println("removeEdge(C,D): edges=" + wgraph.edgeCount()
+                + ", distances(A) still " + wgraph.dijkstraDistances("A"));
+        // Directed: edges only go one way, and the two-hop route beats the direct edge.
+        WeightedGraph<String> wdirected = new WeightedGraph<>(true);
+        wdirected.addEdge("X", "Y", 1); wdirected.addEdge("Y", "Z", 2); wdirected.addEdge("X", "Z", 5);
+        System.out.println("directed: distances(X)=" + wdirected.dijkstraDistances("X")
+                + ", path X -> Z: " + wdirected.dijkstraPath("X", "Z") + " (cost 3, not 5 direct)");
+        System.out.println("directed: distances(Z)=" + wdirected.dijkstraDistances("Z")
+                + ", path Z -> X: " + wdirected.dijkstraPath("Z", "X") + " (no way back)");
+        try {
+            wgraph.addEdge("P", "Q", -1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("addEdge(P,Q,-1) -> " + e.getMessage());
+        }
+        try {
+            wgraph.dijkstraDistances("missing");
+        } catch (IllegalArgumentException e) {
+            System.out.println("dijkstra(missing) -> " + e.getMessage());
+        }
+        WeightedGraph<String> emptyWeighted = new WeightedGraph<>();
+        System.out.println("empty weighted graph: isEmpty=" + emptyWeighted.isEmpty()
+                + ", vertices=" + emptyWeighted.vertexCount() + ", edges=" + emptyWeighted.edgeCount());
 
         System.out.println("\nAll structures working OK");
     }
