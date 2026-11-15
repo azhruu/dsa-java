@@ -16,12 +16,12 @@
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
 | Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
-| Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts) |
+| Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts), Merge Sort (stable, O(n log n), O(n) extra space), Quick Sort (median-of-three pivot, insertion-sort finish, O(n log n) average), Sorting utilities (one API for merge / quick / heap, sorted copy, deterministic shuffle, timed benchmark) |
 | Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue) |
 
 ## Coming next
 
-Dijkstra shortest path ✓ → Sorting & searching utilities. Full plan: [ROADMAP.md](ROADMAP.md).
+Sorting utilities ✓ → Binary search utilities. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -44,7 +44,7 @@ src/main/java/com/azhruu/dsa/
 ├── tree/    BinarySearchTree, AvlTree …
 ├── heap/    Heap (max/min) …
 ├── hash/    HashTable (separate chaining), OpenAddressingHashTable (linear probing) …
-├── sort/    HeapSort …
+├── sort/    HeapSort, Sorting (merge / quick / heap + benchmark) …
 ├── graph/   Graph (adjacency list, BFS, DFS, cycle detection), WeightedGraph (Dijkstra) …
 └── Demo.java
 ```

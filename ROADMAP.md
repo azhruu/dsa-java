@@ -27,7 +27,7 @@ Each item = one complete, tested structure or feature.
 - [x] Dijkstra shortest path
 
 ## Utilities & polish
-- [ ] Sorting utilities (merge/quick/heap sort with timing demo)
+- [x] Sorting utilities (merge/quick/heap sort with timing demo)
 - [ ] Binary search utilities (incl. rotated array)
 - [ ] Unit-style assertion tests for every structure
 - [ ] Complexity cheat-sheet in README

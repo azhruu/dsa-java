@@ -11,6 +11,7 @@ import com.azhruu.dsa.queue.ArrayQueue;
 import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.queue.PriorityQueue;
 import com.azhruu.dsa.sort.HeapSort;
+import com.azhruu.dsa.sort.Sorting;
 import com.azhruu.dsa.stack.ArrayStack;
 import com.azhruu.dsa.stack.LinkedStack;
 import com.azhruu.dsa.tree.AvlTree;
@@ -217,6 +218,61 @@ public class Demo {
         String[] words = {"pear", "apple", "fig", "banana"};
         HeapSort.sort(words);
         System.out.println("sort strings: " + java.util.Arrays.toString(words));
+
+        System.out.println("\n=== Sorting utilities (merge / quick / heap) ===");
+        Integer[] data = {42, 7, 19, 3, 88, 15, 64, 27};
+        Integer[] mergeSorted = Sorting.sortedCopy(data, Sorting.Algorithm.MERGE);
+        System.out.println("mergeSort{42,7,19,3,88,15,64,27}: " + java.util.Arrays.toString(mergeSorted)
+                + " (comparisons=" + Sorting.lastComparisons()
+                + ", writes=" + Sorting.lastSwaps() + ")");
+        System.out.println("input untouched: " + java.util.Arrays.toString(data));
+        Integer[] quickSorted = Sorting.sortedCopy(data, Sorting.Algorithm.QUICK);
+        System.out.println("quickSort{42,7,19,3,88,15,64,27}: " + java.util.Arrays.toString(quickSorted)
+                + " (comparisons=" + Sorting.lastComparisons()
+                + ", swaps=" + Sorting.lastSwaps() + ")");
+        Integer[] heapSorted = Sorting.sortedCopy(data, Sorting.Algorithm.HEAP);
+        System.out.println("heapSort{42,7,19,3,88,15,64,27}:  " + java.util.Arrays.toString(heapSorted)
+                + " (comparisons=" + Sorting.lastComparisons()
+                + ", swaps=" + Sorting.lastSwaps() + ")");
+        // All three agree, and the default sort() is merge sort.
+        Integer[] defaultSorted = data.clone();
+        Sorting.sort(defaultSorted);
+        System.out.println("default sort == merge sort: "
+                + java.util.Arrays.toString(defaultSorted).equals(java.util.Arrays.toString(mergeSorted))
+                + ", isSorted=" + Sorting.isSorted(defaultSorted));
+        Sorting.mergeSortDescending(defaultSorted);
+        System.out.println("mergeSortDescending: " + java.util.Arrays.toString(defaultSorted)
+                + ", isSortedDescending=" + Sorting.isSortedDescending(defaultSorted));
+        Sorting.quickSortDescending(defaultSorted);
+        System.out.println("quickSortDescending: " + java.util.Arrays.toString(defaultSorted));
+        String[] wordsSorted = {"pear", "apple", "fig", "banana"};
+        Sorting.quickSort(wordsSorted);
+        System.out.println("quickSort strings: " + java.util.Arrays.toString(wordsSorted));
+        Integer[] duplicates = {5, 2, 5, 1, 2, 5};
+        Sorting.quickSort(duplicates);
+        System.out.println("quickSort duplicates {5,2,5,1,2,5}: " + java.util.Arrays.toString(duplicates));
+        Integer[] oneElement = {7};
+        Sorting.quickSort(oneElement);
+        System.out.println("quickSort single: " + java.util.Arrays.toString(oneElement));
+        Integer[] emptyArray = {};
+        Sorting.mergeSort(emptyArray);
+        System.out.println("mergeSort empty: sorted=" + Sorting.isSorted(emptyArray));
+        // Timing demo: the same 10,000-element shuffle (seed 42, so the
+        // run is repeatable) through each algorithm.
+        Integer[] shuffled = new Integer[10000];
+        for (int i = 0; i < shuffled.length; i++) shuffled[i] = i;
+        Integer[] input = Sorting.shuffledCopy(shuffled, 42);
+        System.out.println("timing on 10,000 shuffled elements (seed 42):");
+        for (Sorting.Algorithm algorithm : Sorting.Algorithm.values()) {
+            Sorting.Timing timing = Sorting.benchmark(algorithm, input);
+            System.out.println("  " + timing);
+        }
+        // Quick sort's trap is sorted input -- the median-of-three pivot
+        // must keep it fast instead of degrading to O(n^2).
+        Sorting.Timing sortedInput = Sorting.benchmark(Sorting.Algorithm.QUICK, shuffled);
+        System.out.println("  quick sort on already-sorted 10,000: " + sortedInput);
+        System.out.println("  input still shuffled after benchmarks: "
+                + !Sorting.isSorted(input) + " (benchmark sorts a copy)");
 
         System.out.println("\n=== HashTable (separate chaining) ===");
         // 1, 17 and 33 all hash to bucket 1 at capacity 16: a real collision chain.
