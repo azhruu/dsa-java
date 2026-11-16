@@ -10,6 +10,7 @@ import com.azhruu.dsa.list.SinglyLinkedList;
 import com.azhruu.dsa.queue.ArrayQueue;
 import com.azhruu.dsa.queue.LinkedQueue;
 import com.azhruu.dsa.queue.PriorityQueue;
+import com.azhruu.dsa.search.BinarySearch;
 import com.azhruu.dsa.sort.HeapSort;
 import com.azhruu.dsa.sort.Sorting;
 import com.azhruu.dsa.stack.ArrayStack;
@@ -466,6 +467,65 @@ public class Demo {
         WeightedGraph<String> emptyWeighted = new WeightedGraph<>();
         System.out.println("empty weighted graph: isEmpty=" + emptyWeighted.isEmpty()
                 + ", vertices=" + emptyWeighted.vertexCount() + ", edges=" + emptyWeighted.edgeCount());
+
+        System.out.println("\n=== Binary search utilities ===");
+        int[] sorted = {1, 3, 5, 7, 9, 11, 13, 15};
+        System.out.println("binarySearch{1,3,5,7,9,11,13,15}, 7 -> "
+                + BinarySearch.binarySearch(sorted, 7)
+                + " (comparisons=" + BinarySearch.lastComparisons() + ")");
+        System.out.println("binarySearch(..., 8) -> " + BinarySearch.binarySearch(sorted, 8)
+                + ", binarySearch(..., 1) -> " + BinarySearch.binarySearch(sorted, 1)
+                + ", binarySearch(..., 15) -> " + BinarySearch.binarySearch(sorted, 15));
+        System.out.println("binarySearch range [2, 6) for 9 -> "
+                + BinarySearch.binarySearch(sorted, 9, 2, 6) + " (9 sits at index 4, inside the range)"
+                + ", for 13 -> " + BinarySearch.binarySearch(sorted, 13, 2, 6) + " (13 is at index 6, outside)");
+        // Duplicates: plain search may land on any copy; first/last pin the ends.
+        int[] dups = {1, 2, 2, 2, 3, 4, 4, 5};
+        System.out.println("dups {1,2,2,2,3,4,4,5}: firstOccurrence(2)=" + BinarySearch.firstOccurrence(dups, 2)
+                + ", lastOccurrence(2)=" + BinarySearch.lastOccurrence(dups, 2)
+                + ", firstOccurrence(4)=" + BinarySearch.firstOccurrence(dups, 4)
+                + ", lastOccurrence(4)=" + BinarySearch.lastOccurrence(dups, 4)
+                + ", firstOccurrence(6)=" + BinarySearch.firstOccurrence(dups, 6));
+        System.out.println("lowerBound(2)=" + BinarySearch.lowerBound(dups, 2)
+                + ", upperBound(2)=" + BinarySearch.upperBound(dups, 2)
+                + " (2 occupies indexes 1..3)"
+                + ", lowerBound(0)=" + BinarySearch.lowerBound(dups, 0)
+                + ", upperBound(5)=" + BinarySearch.upperBound(dups, 5) + " (past the end)");
+        // Rotated: {4,5,6,7,0,1,2} is {0..7} cut after 7.
+        int[] rotated = {4, 5, 6, 7, 0, 1, 2};
+        System.out.println("rotated {4,5,6,7,0,1,2}: search(0)=" + BinarySearch.searchRotated(rotated, 0)
+                + ", search(6)=" + BinarySearch.searchRotated(rotated, 6)
+                + ", search(3)=" + BinarySearch.searchRotated(rotated, 3)
+                + ", findMin=" + BinarySearch.findMinRotated(rotated));
+        int[] unrotated = {0, 1, 2, 4, 5, 6, 7};
+        System.out.println("unrotated: search(5)=" + BinarySearch.searchRotated(unrotated, 5)
+                + ", findMin=" + BinarySearch.findMinRotated(unrotated));
+        int[] dupRotated = {2, 2, 2, 0, 1, 2};
+        System.out.println("rotated with duplicates {2,2,2,0,1,2}: search(0)="
+                + BinarySearch.searchRotated(dupRotated, 0)
+                + ", search(1)=" + BinarySearch.searchRotated(dupRotated, 1)
+                + ", findMin=" + BinarySearch.findMinRotated(dupRotated));
+        int[] single = {42};
+        System.out.println("single {42}: binarySearch(42)=" + BinarySearch.binarySearch(single, 42)
+                + ", searchRotated(42)=" + BinarySearch.searchRotated(single, 42)
+                + ", findMin=" + BinarySearch.findMinRotated(single));
+        int[] emptySearch = {};
+        System.out.println("empty: binarySearch(1)=" + BinarySearch.binarySearch(emptySearch, 1)
+                + ", lowerBound(1)=" + BinarySearch.lowerBound(emptySearch, 1));
+        String[] sortedWords = {"apple", "banana", "fig", "pear"};
+        System.out.println("generic strings: binarySearch(\"fig\")="
+                + BinarySearch.binarySearch(sortedWords, "fig")
+                + ", binarySearch(\"mango\")=" + BinarySearch.binarySearch(sortedWords, "mango"));
+        try {
+            BinarySearch.findMinRotated(emptySearch);
+        } catch (IllegalArgumentException e) {
+            System.out.println("findMinRotated(empty) -> " + e.getMessage());
+        }
+        try {
+            BinarySearch.binarySearch(sorted, 7, 5, 2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("binarySearch range [5, 2) -> " + e.getMessage());
+        }
 
         System.out.println("\nAll structures working OK");
     }

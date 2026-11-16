@@ -28,6 +28,6 @@ Each item = one complete, tested structure or feature.
 
 ## Utilities & polish
 - [x] Sorting utilities (merge/quick/heap sort with timing demo)
-- [ ] Binary search utilities (incl. rotated array)
+- [x] Binary search utilities (incl. rotated array)
 - [ ] Unit-style assertion tests for every structure
 - [ ] Complexity cheat-sheet in README
