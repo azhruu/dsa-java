@@ -22,7 +22,7 @@
 
 ## Coming next
 
-Sorting utilities ✓ → Binary search utilities ✓ → Unit-style assertion tests. Full plan: [ROADMAP.md](ROADMAP.md).
+Sorting utilities ✓ → Binary search utilities ✓ → Unit-style assertion tests ✓ → Complexity cheat-sheet in README. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
@@ -33,6 +33,17 @@ Zero dependencies, plain `javac`:
 ```bash
 javac -d out $(find src -name "*.java")
 java -cp out com.azhruu.dsa.Demo
+```
+
+## Run the tests
+
+Unit-style assertion tests for every structure — no framework, no
+dependencies, just a `main` that checks and reports. Exit code 0
+means all 263 checks passed.
+
+```bash
+javac -d out $(find src -name "*.java")
+java -cp out com.azhruu.dsa.Tests
 ```
 
 ## Structure
@@ -48,6 +59,8 @@ src/main/java/com/azhruu/dsa/
 ├── sort/    HeapSort, Sorting (merge / quick / heap + benchmark) …
 ├── graph/   Graph (adjacency list, BFS, DFS, cycle detection), WeightedGraph (Dijkstra) …
 └── Demo.java
+src/test/java/com/azhruu/dsa/
+└── Tests.java    # assertion tests for every structure above
 ```
 
 ## License
