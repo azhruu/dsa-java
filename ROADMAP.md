@@ -30,4 +30,4 @@ Each item = one complete, tested structure or feature.
 - [x] Sorting utilities (merge/quick/heap sort with timing demo)
 - [x] Binary search utilities (incl. rotated array)
 - [x] Unit-style assertion tests for every structure
-- [ ] Complexity cheat-sheet in README
+- [x] Complexity cheat-sheet in README

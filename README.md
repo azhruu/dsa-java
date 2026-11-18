@@ -20,9 +20,54 @@
 | Searching | Binary search utilities (binary search on int[] and Comparables, range search, first / last occurrence, lower / upper bound, rotated-array search, rotated minimum, comparison counts) |
 | Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue) |
 
+## Complexity cheat-sheet
+
+Every structure and algorithm in this repo, at a glance. `n` is the
+number of elements, `V` vertices, `E` edges.
+
+### Data structures
+
+| Structure | Access | Search | Insert | Delete | Space |
+|---|---|---|---|---|---|
+| Singly Linked List | O(n) | O(n) | O(1) head · O(n) tail / index | O(1) head · O(n) value / index | O(n) |
+| Doubly Linked List | O(n) | O(n) | O(1) head / tail · O(n) index | O(1) head / tail · O(n) value / index | O(n) |
+| Array Stack | — (top only) | — | O(1) amortized push | O(1) amortized pop | O(n) |
+| Linked Stack | — (top only) | — | O(1) push | O(1) pop | O(n) |
+| Circular Array Queue | — (ends only) | — | O(1) enqueue | O(1) dequeue | O(n) |
+| Linked Queue | — (ends only) | — | O(1) enqueue | O(1) dequeue | O(n) |
+| Priority Queue (sorted list) | — | O(n) | O(n) enqueue | O(1) dequeue | O(n) |
+| Binary Search Tree | O(log n) avg · O(n) worst | O(log n) avg · O(n) worst | O(log n) avg · O(n) worst | O(log n) avg · O(n) worst | O(n) |
+| AVL Tree | O(log n) | O(log n) | O(log n) | O(log n) | O(n) |
+| Max/Min Heap | O(1) peek | O(n) | O(log n) insert | O(log n) extract | O(n) |
+| Hash Table (separate chaining) | — | O(1) avg · O(n) worst get | O(1) avg · O(n) worst put | O(1) avg · O(n) worst remove | O(n) |
+| Open-Addressing Hash Table | — | O(1) avg · O(n) worst get | O(1) avg · O(n) worst put | O(1) avg · O(n) worst remove | O(n) |
+
+Notes: the heap also builds in O(n) (`heapify`). Both hash tables
+rehash automatically (chaining at 0.75 load, open addressing at 0.7),
+which is what keeps the average case at O(1). A plain BST degrades to
+O(n) on sorted input — that is exactly what the AVL tree's rotations
+prevent.
+
+### Sorting & searching
+
+| Algorithm | Best | Average | Worst | Space | Notes |
+|---|---|---|---|---|---|
+| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) | Stable |
+| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) | Median-of-three pivot, insertion-sort finish |
+| Heap Sort | O(n log n) | O(n log n) | O(n log n) | O(1) | In-place |
+| Binary Search | O(1) | O(log n) | O(log n) | O(1) | Sorted input; rotated-array search is also O(log n) |
+
+### Graphs
+
+| Algorithm | Time | Space | Notes |
+|---|---|---|---|
+| BFS | O(V + E) | O(V) | Visit order, shortest path on unweighted graphs |
+| DFS | O(V + E) | O(V) | Visit order, cycle detection |
+| Dijkstra | O((V + E) log V) | O(V) | Non-negative weights, min-heap priority queue |
+
 ## Coming next
 
-Sorting utilities ✓ → Binary search utilities ✓ → Unit-style assertion tests ✓ → Complexity cheat-sheet in README. Full plan: [ROADMAP.md](ROADMAP.md).
+Sorting utilities ✓ → Binary search utilities ✓ → Unit-style assertion tests ✓ → Complexity cheat-sheet in README ✓. Full plan: [ROADMAP.md](ROADMAP.md).
 
 Companion project: **[AlgoViz](https://github.com/azhruu/AlgoViz)** animates these same structures in the browser.
 
