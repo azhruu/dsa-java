@@ -120,11 +120,18 @@ public final class Tests {
         eq("after remove(20)", "[5 -> 10 -> 15 -> 30]", list.toString());
         check("remove missing returns false", !list.remove(99));
         eq("removeFirst", 5, list.removeFirst());
+        eq("removeLast", 30, list.removeLast());
+        eq("after removeLast", "[10 -> 15]", list.toString());
+        SinglyLinkedList<Integer> single = new SinglyLinkedList<>();
+        single.addLast(7);
+        eq("removeLast on one element", 7, single.removeLast());
+        check("empty after removeLast on one element", single.isEmpty());
         list.reverse();
-        eq("reversed", "[30 -> 15 -> 10]", list.toString());
-        eq("size", 3, list.size());
+        eq("reversed", "[15 -> 10]", list.toString());
+        eq("size", 2, list.size());
         SinglyLinkedList<Integer> empty = new SinglyLinkedList<>();
         throwsCheck("removeFirst on empty", IllegalStateException.class, empty::removeFirst);
+        throwsCheck("removeLast on empty", IllegalStateException.class, empty::removeLast);
         throwsCheck("addAt past the end", IndexOutOfBoundsException.class,
                 () -> list.addAt(9, 1));
         throwsCheck("addAt negative", IndexOutOfBoundsException.class,

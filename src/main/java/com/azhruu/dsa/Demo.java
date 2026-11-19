@@ -33,6 +33,7 @@ public class Demo {
         System.out.println("remove(20):  " + list);
         list.reverse();
         System.out.println("reversed:    " + list);
+        System.out.println("removeLast -> " + list.removeLast() + ", list now " + list);
         System.out.println("size=" + list.size() + ", contains(15)=" + list.contains(15));
 
         System.out.println("\n=== DoublyLinkedList ===");

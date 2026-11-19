@@ -2,7 +2,8 @@ package com.azhruu.dsa.list;
 
 /**
  * Generic singly linked list implemented from scratch.
- * Operations: insert (head/tail/index), delete, search, reverse, size.
+ * Operations: insert (head/tail/index), delete (first/last/value),
+ * search, reverse, size.
  */
 public class SinglyLinkedList<T> {
 
@@ -49,6 +50,21 @@ public class SinglyLinkedList<T> {
         if (head == null) throw new IllegalStateException("list is empty");
         T value = head.data;
         head = head.next;
+        size--;
+        return value;
+    }
+
+    /**
+     * Removes and returns the last element. O(n): a singly linked list
+     * has no tail pointer, so the walk stops at the second-last node.
+     */
+    public T removeLast() {
+        if (head == null) throw new IllegalStateException("list is empty");
+        if (head.next == null) return removeFirst();
+        Node<T> cur = head;
+        while (cur.next.next != null) cur = cur.next;
+        T value = cur.next.data;
+        cur.next = null;
         size--;
         return value;
     }

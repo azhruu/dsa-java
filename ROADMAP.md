@@ -31,3 +31,4 @@ Each item = one complete, tested structure or feature.
 - [x] Binary search utilities (incl. rotated array)
 - [x] Unit-style assertion tests for every structure
 - [x] Complexity cheat-sheet in README
+- [x] SinglyLinkedList.removeLast() (tail removal, O(n)) — polish, added after the roadmap was complete

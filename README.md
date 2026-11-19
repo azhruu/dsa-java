@@ -10,7 +10,7 @@
 
 | Area | Structures |
 |---|---|
-| Lists | Singly Linked List (insert / delete / search / reverse), Doubly Linked List (forward / backward traversal) |
+| Lists | Singly Linked List (insert / delete / search / reverse, removeFirst / removeLast), Doubly Linked List (forward / backward traversal) |
 | Stacks | Array Stack (dynamic growth), Linked Stack (unbounded) |
 | Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
@@ -84,7 +84,7 @@ java -cp out com.azhruu.dsa.Demo
 
 Unit-style assertion tests for every structure — no framework, no
 dependencies, just a `main` that checks and reports. Exit code 0
-means all 263 checks passed.
+means all 268 checks passed.
 
 ```bash
 javac -d out $(find src -name "*.java")
