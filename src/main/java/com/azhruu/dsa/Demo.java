@@ -154,6 +154,8 @@ public class Demo {
                 + ", size=" + maxHeap.size());
         System.out.println("extract -> " + maxHeap.extract() + ", heap now: " + maxHeap
                 + ", valid=" + maxHeap.isValid());
+        System.out.println("contains(40)=" + maxHeap.contains(40)
+                + ", contains(99)=" + maxHeap.contains(99));
         System.out.print("drain order: ");
         while (!maxHeap.isEmpty()) {
             System.out.print(maxHeap.extract());
@@ -187,6 +189,12 @@ public class Demo {
         for (int i = 40; i >= 1; i--) big.insert(i);
         System.out.println("40 inserts (growth): size=" + big.size()
                 + ", peek=" + big.peek() + ", valid=" + big.isValid());
+        System.out.println("contains(25)=" + big.contains(25) + ", contains(41)=" + big.contains(41));
+        big.clear();
+        System.out.println("clear -> empty=" + big.isEmpty() + ", size=" + big.size()
+                + ", contains(25)=" + big.contains(25));
+        big.insert(99);
+        System.out.println("usable after clear: peek=" + big.peek() + ", size=" + big.size());
 
         System.out.println("\n=== HeapSort ===");
         Integer[] unsorted = {42, 7, 19, 3, 88, 15, 64, 27};

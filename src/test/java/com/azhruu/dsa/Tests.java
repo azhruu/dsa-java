@@ -350,6 +350,18 @@ public final class Tests {
         Heap<Integer> empty = Heap.maxHeap();
         throwsCheck("extract on empty", IllegalStateException.class, empty::extract);
         throwsCheck("peek on empty", IllegalStateException.class, empty::peek);
+        Heap<Integer> mixed = Heap.maxHeap();
+        for (int v : new int[]{5, 1, 4, 2, 3}) mixed.insert(v);
+        check("contains present", mixed.contains(4));
+        check("contains absent", !mixed.contains(99));
+        throwsCheck("contains null", NullPointerException.class, () -> mixed.contains(null));
+        mixed.clear();
+        check("clear empties", mixed.isEmpty() && mixed.size() == 0);
+        check("contains after clear", !mixed.contains(4));
+        check("clear keeps heap valid", mixed.isValid());
+        mixed.insert(7);
+        eq("usable after clear", 7, mixed.peek());
+        check("contains after re-insert", mixed.contains(7));
     }
 
     private static void testHashTable() {

@@ -14,7 +14,7 @@
 | Stacks | Array Stack (dynamic growth), Linked Stack (unbounded) |
 | Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
-| Heaps | Max/Min Heap (insert / extract / peek, O(n) heapify, heap-property check) |
+| Heaps | Max/Min Heap (insert / extract / peek, contains, clear, O(n) heapify, heap-property check) |
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts), Merge Sort (stable, O(n log n), O(n) extra space), Quick Sort (median-of-three pivot, insertion-sort finish, O(n log n) average), Sorting utilities (one API for merge / quick / heap, sorted copy, deterministic shuffle, timed benchmark) |
 | Searching | Binary search utilities (binary search on int[] and Comparables, range search, first / last occurrence, lower / upper bound, rotated-array search, rotated minimum, comparison counts) |

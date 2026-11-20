@@ -32,3 +32,4 @@ Each item = one complete, tested structure or feature.
 - [x] Unit-style assertion tests for every structure
 - [x] Complexity cheat-sheet in README
 - [x] SinglyLinkedList.removeLast() (tail removal, O(n)) — polish, added after the roadmap was complete
+- [x] Heap.contains() + Heap.clear() — polish, added after the roadmap was complete

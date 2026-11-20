@@ -102,6 +102,25 @@ public class Heap<T extends Comparable<T>> {
         return elementAt(0);
     }
 
+    /**
+     * True if the heap holds a value equal to the given one. O(n): a
+     * heap is ordered only along root-to-leaf paths, so membership
+     * needs a linear scan of the array.
+     */
+    public boolean contains(T value) {
+        Objects.requireNonNull(value, "value must not be null");
+        for (int i = 0; i < size; i++) {
+            if (value.equals(elementAt(i))) return true;
+        }
+        return false;
+    }
+
+    /** Remove every element, keeping the current capacity. */
+    public void clear() {
+        for (int i = 0; i < size; i++) data[i] = null;
+        size = 0;
+    }
+
     /** True if this is a max-heap, false for a min-heap. */
     public boolean isMaxHeap() { return max; }
 
