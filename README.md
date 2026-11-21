@@ -18,7 +18,7 @@
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts), Merge Sort (stable, O(n log n), O(n) extra space), Quick Sort (median-of-three pivot, insertion-sort finish, O(n log n) average), Sorting utilities (one API for merge / quick / heap, sorted copy, deterministic shuffle, timed benchmark) |
 | Searching | Binary search utilities (binary search on int[] and Comparables, range search, first / last occurrence, lower / upper bound, rotated-array search, rotated minimum, comparison counts) |
-| Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue) |
+| Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection, topological sort), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue) |
 
 ## Complexity cheat-sheet
 
@@ -63,6 +63,7 @@ prevent.
 |---|---|---|---|
 | BFS | O(V + E) | O(V) | Visit order, shortest path on unweighted graphs |
 | DFS | O(V + E) | O(V) | Visit order, cycle detection |
+| Topological sort | O(V + E) | O(V) | Kahn's algorithm; empty list when a cycle makes ordering impossible |
 | Dijkstra | O((V + E) log V) | O(V) | Non-negative weights, min-heap priority queue |
 
 ## Coming next
@@ -84,7 +85,7 @@ java -cp out com.azhruu.dsa.Demo
 
 Unit-style assertion tests for every structure — no framework, no
 dependencies, just a `main` that checks and reports. Exit code 0
-means all 268 checks passed.
+means all 281 checks passed.
 
 ```bash
 javac -d out $(find src -name "*.java")
@@ -102,7 +103,7 @@ src/main/java/com/azhruu/dsa/
 ├── heap/    Heap (max/min) …
 ├── hash/    HashTable (separate chaining), OpenAddressingHashTable (linear probing) …
 ├── sort/    HeapSort, Sorting (merge / quick / heap + benchmark) …
-├── graph/   Graph (adjacency list, BFS, DFS, cycle detection), WeightedGraph (Dijkstra) …
+├── graph/   Graph (adjacency list, BFS, DFS, cycle detection, topological sort), WeightedGraph (Dijkstra) …
 └── Demo.java
 src/test/java/com/azhruu/dsa/
 └── Tests.java    # assertion tests for every structure above

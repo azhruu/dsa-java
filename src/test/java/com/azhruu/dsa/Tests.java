@@ -564,6 +564,25 @@ public final class Tests {
         check("directed edge has no reverse", !directed.hasEdge("B", "A"));
         eq("directed bfs", Arrays.asList("A", "B"), directed.bfs("A"));
         eq("directed bfs from B stops", Arrays.asList("B"), directed.bfs("B"));
+        // Topological sort: every edge points forward in the order.
+        Graph<String> dag = new Graph<>(true);
+        dag.addEdge("Intro", "Data Structures");
+        dag.addEdge("Intro", "Databases");
+        dag.addEdge("Data Structures", "Algorithms");
+        dag.addEdge("Databases", "Web Development");
+        List<String> topo = dag.topologicalSort();
+        eq("topo order", Arrays.asList("Intro", "Data Structures", "Databases",
+                "Algorithms", "Web Development"), topo);
+        check("topo respects every edge", topo.indexOf("Intro") < topo.indexOf("Algorithms")
+                && topo.indexOf("Data Structures") < topo.indexOf("Algorithms")
+                && topo.indexOf("Databases") < topo.indexOf("Web Development"));
+        Graph<String> cyclicTopo = new Graph<>(true);
+        cyclicTopo.addEdge("X", "Y");
+        cyclicTopo.addEdge("Y", "Z");
+        cyclicTopo.addEdge("Z", "X");
+        eq("cyclic graph has no topo order", Arrays.asList(), cyclicTopo.topologicalSort());
+        eq("undirected graph has no topo order", Arrays.asList(), graph.topologicalSort());
+        eq("empty graph topo order", Arrays.asList(), new Graph<String>().topologicalSort());
     }
 
     private static void testWeightedGraph() {

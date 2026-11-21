@@ -429,6 +429,24 @@ public class Demo {
             System.out.println("dfs(missing) -> " + e.getMessage());
         }
 
+        System.out.println("\n=== Graph topological sort (Kahn's algorithm) ===");
+        // Course prerequisites: every edge points from a prerequisite
+        // to the course that needs it, so the order is a valid study plan.
+        Graph<String> courses = new Graph<>(true);
+        courses.addEdge("Intro to CS", "Data Structures");
+        courses.addEdge("Intro to CS", "Databases");
+        courses.addEdge("Data Structures", "Algorithms");
+        courses.addEdge("Data Structures", "Operating Systems");
+        courses.addEdge("Algorithms", "Compilers");
+        courses.addEdge("Databases", "Web Development");
+        System.out.println("course order: " + courses.topologicalSort()
+                + " (every prerequisite comes first)");
+        System.out.println("cyclic graph: " + cyclic.topologicalSort()
+                + " (a cycle has no topological order)");
+        System.out.println("undirected graph: " + graph.topologicalSort()
+                + " (an undirected edge is a two-way dependency)");
+        System.out.println("empty graph: " + emptyGraph.topologicalSort());
+
         System.out.println("\n=== WeightedGraph + Dijkstra ===");
         WeightedGraph<String> wgraph = new WeightedGraph<>();
         wgraph.addEdge("A", "B", 4); wgraph.addEdge("A", "C", 2);

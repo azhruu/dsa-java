@@ -38,6 +38,14 @@ import java.util.Set;
  * in a directed graph any edge to a grey vertex is a cycle; in an
  * undirected graph the edge back to the parent is the one just walked
  * and does not count.
+ *
+ * <p>Topological sort (Kahn's algorithm) orders a directed acyclic
+ * graph so every edge points forward: a vertex is emitted only once
+ * all of its prerequisites have been emitted. It runs on this
+ * project's own {@code ArrayQueue} and returns an empty list when no
+ * such order exists -- a directed graph with a cycle, or any
+ * undirected graph with an edge (an undirected edge is a two-way
+ * dependency, so it can never be ordered).
  */
 public class Graph<T> {
 
@@ -267,6 +275,44 @@ public class Graph<T> {
             if (!colour.containsKey(vertex) && hasCycleFrom(vertex, null, colour)) return true;
         }
         return false;
+    }
+
+    /**
+     * Topological order (Kahn's algorithm): every vertex appears after
+     * all of its prerequisites, so each edge points forward in the
+     * list. O(V + E). Only a directed acyclic graph has one: a
+     * directed graph with a cycle -- or any undirected graph with an
+     * edge -- returns an empty list. An empty graph returns an empty
+     * list too, which is its (trivial) topological order. Vertices
+     * with no prerequisites come out in vertex-add order, so the
+     * result is deterministic.
+     */
+    public List<T> topologicalSort() {
+        Map<T, Integer> inDegree = new HashMap<>();
+        for (T vertex : adjacency.keySet()) inDegree.put(vertex, 0);
+        for (List<T> neighbours : adjacency.values()) {
+            for (T neighbour : neighbours) {
+                inDegree.put(neighbour, inDegree.get(neighbour) + 1);
+            }
+        }
+        ArrayQueue<T> queue = new ArrayQueue<>();
+        for (T vertex : adjacency.keySet()) {
+            if (inDegree.get(vertex) == 0) queue.enqueue(vertex);
+        }
+        List<T> order = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            T current = queue.dequeue();
+            order.add(current);
+            for (T neighbour : adjacency.get(current)) {
+                int remaining = inDegree.get(neighbour) - 1;
+                inDegree.put(neighbour, remaining);
+                if (remaining == 0) queue.enqueue(neighbour);
+            }
+        }
+        // Fewer vertices out than in means some vertices never reached
+        // zero in-degree: a cycle is holding them back.
+        if (order.size() != adjacency.size()) return new ArrayList<>();
+        return order;
     }
 
     /** One DFS pass from {@code start}, keeping the visit order and each vertex's parent. */

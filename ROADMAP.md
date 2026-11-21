@@ -33,3 +33,4 @@ Each item = one complete, tested structure or feature.
 - [x] Complexity cheat-sheet in README
 - [x] SinglyLinkedList.removeLast() (tail removal, O(n)) — polish, added after the roadmap was complete
 - [x] Heap.contains() + Heap.clear() — polish, added after the roadmap was complete
+- [x] Graph.topologicalSort() (Kahn's algorithm, empty list on a cycle) — polish, added after the roadmap was complete
