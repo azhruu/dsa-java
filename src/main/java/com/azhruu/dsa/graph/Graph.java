@@ -46,6 +46,12 @@ import java.util.Set;
  * such order exists -- a directed graph with a cycle, or any
  * undirected graph with an edge (an undirected edge is a two-way
  * dependency, so it can never be ordered).
+ *
+ * <p>Connected components split the graph into its separate pieces:
+ * two vertices are in the same component when a path joins them.
+ * Edges are treated as undirected for this, so a directed graph is
+ * grouped by its underlying undirected structure (weakly connected
+ * components). An isolated vertex is a component of one.
  */
 public class Graph<T> {
 
@@ -313,6 +319,46 @@ public class Graph<T> {
         // zero in-degree: a cycle is holding them back.
         if (order.size() != adjacency.size()) return new ArrayList<>();
         return order;
+    }
+
+    /**
+     * Connected components: one list per separate piece of the graph,
+     * each holding the vertices of that piece in BFS order. O(V + E).
+     * Edges are treated as undirected, so a directed graph is grouped
+     * by its underlying undirected structure -- X -&gt; Y -&gt; Z is one
+     * component even though Z cannot reach X. An isolated vertex is a
+     * component of one, and an empty graph has no components. The
+     * walk runs on this project's own {@code ArrayQueue}.
+     */
+    public List<List<T>> connectedComponents() {
+        // The undirected view: every edge joins its endpoints both ways.
+        Map<T, List<T>> undirected = new LinkedHashMap<>();
+        for (T vertex : adjacency.keySet()) undirected.put(vertex, new ArrayList<>());
+        for (Map.Entry<T, List<T>> entry : adjacency.entrySet()) {
+            for (T neighbour : entry.getValue()) {
+                undirected.get(entry.getKey()).add(neighbour);
+                if (!undirected.get(neighbour).contains(entry.getKey()))
+                    undirected.get(neighbour).add(entry.getKey());
+            }
+        }
+        List<List<T>> components = new ArrayList<>();
+        Set<T> visited = new HashSet<>();
+        ArrayQueue<T> queue = new ArrayQueue<>();
+        for (T start : adjacency.keySet()) {
+            if (visited.contains(start)) continue;
+            List<T> component = new ArrayList<>();
+            visited.add(start);
+            queue.enqueue(start);
+            while (!queue.isEmpty()) {
+                T current = queue.dequeue();
+                component.add(current);
+                for (T neighbour : undirected.get(current)) {
+                    if (visited.add(neighbour)) queue.enqueue(neighbour);
+                }
+            }
+            components.add(component);
+        }
+        return components;
     }
 
     /** One DFS pass from {@code start}, keeping the visit order and each vertex's parent. */

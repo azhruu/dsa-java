@@ -400,6 +400,7 @@ public class Demo {
         System.out.println("dfs(A):         " + dfsGraph.dfs("A")
                 + " (dives B -> D -> C -> E before F)");
         System.out.println("dfs forest:     " + dfsGraph.dfsForest() + " (isolated G included)");
+        System.out.println("components:     " + dfsGraph.connectedComponents() + " (isolated G is its own piece)");
         System.out.println("dfs path A->F:  " + dfsGraph.dfsPath("A", "F") + " (not the shortest: BFS gave 3 edges)");
         System.out.println("dfs path A->G:  " + dfsGraph.dfsPath("A", "G") + " (unreachable)");
         System.out.println("hasCycle:       " + dfsGraph.hasCycle() + " (A-B-D-C-A closes a loop)");

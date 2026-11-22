@@ -557,6 +557,15 @@ public final class Tests {
         eq("dfsForest covers both components",
                 Arrays.asList("A", "B", "C", "D"), forest.dfsForest());
         check("forest has no cycle", !forest.hasCycle());
+        eq("connectedComponents splits the forest",
+                Arrays.asList(Arrays.asList("A", "B"), Arrays.asList("C", "D")),
+                forest.connectedComponents());
+        Graph<String> lone = new Graph<>();
+        lone.addVertex("S");
+        eq("isolated vertex is a component of one",
+                Arrays.asList(Arrays.asList("S")), lone.connectedComponents());
+        check("empty graph has no components",
+                new Graph<String>().connectedComponents().isEmpty());
         // Directed edges go one way only.
         Graph<String> directed = new Graph<>(true);
         directed.addEdge("A", "B");
@@ -564,6 +573,8 @@ public final class Tests {
         check("directed edge has no reverse", !directed.hasEdge("B", "A"));
         eq("directed bfs", Arrays.asList("A", "B"), directed.bfs("A"));
         eq("directed bfs from B stops", Arrays.asList("B"), directed.bfs("B"));
+        eq("directed edge is one weak component",
+                Arrays.asList(Arrays.asList("A", "B")), directed.connectedComponents());
         // Topological sort: every edge points forward in the order.
         Graph<String> dag = new Graph<>(true);
         dag.addEdge("Intro", "Data Structures");
