@@ -179,6 +179,12 @@ public class WeightedGraph<T> {
     public boolean isDirected() { return directed; }
     public boolean isEmpty() { return adjacency.isEmpty(); }
 
+    /** Remove every vertex and edge, so the graph can be reused. */
+    public void clear() {
+        adjacency.clear();
+        edgeCount = 0;
+    }
+
     /**
      * Cheapest-path distances from {@code source}, by Dijkstra's
      * algorithm. The map holds only the vertices reachable from the

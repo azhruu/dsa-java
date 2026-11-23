@@ -157,6 +157,12 @@ public class Graph<T> {
     public boolean isDirected() { return directed; }
     public boolean isEmpty() { return adjacency.isEmpty(); }
 
+    /** Remove every vertex and edge, so the graph can be reused. */
+    public void clear() {
+        adjacency.clear();
+        edgeCount = 0;
+    }
+
     /**
      * Breadth-first traversal from {@code start}: vertices in the order
      * they are first reached, level by level. O(V + E).

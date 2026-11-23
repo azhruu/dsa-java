@@ -375,6 +375,11 @@ public class Demo {
         graph.removeVertex("E");
         System.out.println("removeVertex(E): vertices=" + graph.vertexCount()
                 + ", edges=" + graph.edgeCount() + ", hasVertex(E)=" + graph.hasVertex("E"));
+        graph.clear();
+        System.out.println("clear -> empty=" + graph.isEmpty()
+                + ", vertices=" + graph.vertexCount() + ", edges=" + graph.edgeCount());
+        graph.addEdge("A", "B");
+        System.out.println("usable after clear: bfs(A)=" + graph.bfs("A"));
         // Directed: edges only go one way, so Z is a dead end from X.
         Graph<String> directed = new Graph<>(true);
         directed.addEdge("X", "Y"); directed.addEdge("Y", "Z"); directed.addEdge("X", "Z");
@@ -475,6 +480,11 @@ public class Demo {
         wgraph.removeEdge("C", "D");
         System.out.println("removeEdge(C,D): edges=" + wgraph.edgeCount()
                 + ", distances(A) still " + wgraph.dijkstraDistances("A"));
+        wgraph.clear();
+        System.out.println("clear -> empty=" + wgraph.isEmpty()
+                + ", vertices=" + wgraph.vertexCount() + ", edges=" + wgraph.edgeCount());
+        wgraph.addEdge("A", "B", 2);
+        System.out.println("usable after clear: distances(A)=" + wgraph.dijkstraDistances("A"));
         // Directed: edges only go one way, and the two-hop route beats the direct edge.
         WeightedGraph<String> wdirected = new WeightedGraph<>(true);
         wdirected.addEdge("X", "Y", 1); wdirected.addEdge("Y", "Z", 2); wdirected.addEdge("X", "Z", 5);

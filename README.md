@@ -18,7 +18,7 @@
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts), Merge Sort (stable, O(n log n), O(n) extra space), Quick Sort (median-of-three pivot, insertion-sort finish, O(n log n) average), Sorting utilities (one API for merge / quick / heap, sorted copy, deterministic shuffle, timed benchmark) |
 | Searching | Binary search utilities (binary search on int[] and Comparables, range search, first / last occurrence, lower / upper bound, rotated-array search, rotated minimum, comparison counts) |
-| Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection, topological sort, connected components), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue) |
+| Graphs | Graph (adjacency list, directed / undirected, BFS visit order, shortest-path distances & paths, DFS visit order & paths, DFS forest, cycle detection, topological sort, connected components, clear), Weighted Graph (Dijkstra shortest-path distances & paths, non-negative weights, min-heap priority queue, clear) |
 
 ## Complexity cheat-sheet
 

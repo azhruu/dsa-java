@@ -594,6 +594,11 @@ public final class Tests {
         eq("cyclic graph has no topo order", Arrays.asList(), cyclicTopo.topologicalSort());
         eq("undirected graph has no topo order", Arrays.asList(), graph.topologicalSort());
         eq("empty graph topo order", Arrays.asList(), new Graph<String>().topologicalSort());
+        graph.clear();
+        check("clear empties the graph", graph.isEmpty()
+                && graph.vertexCount() == 0 && graph.edgeCount() == 0);
+        graph.addEdge("A", "B");
+        eq("usable after clear", Arrays.asList("A", "B"), graph.bfs("A"));
     }
 
     private static void testWeightedGraph() {
@@ -625,5 +630,10 @@ public final class Tests {
         eq("distance to C falls back to A->B->C", 3.0, graph.dijkstraDistances("A").get("C"));
         throwsCheck("dijkstra from unknown vertex", IllegalArgumentException.class,
                 () -> graph.dijkstraDistances("Z"));
+        graph.clear();
+        check("clear empties the graph", graph.isEmpty()
+                && graph.vertexCount() == 0 && graph.edgeCount() == 0);
+        graph.addEdge("A", "B", 2.0);
+        eq("usable after clear", 2.0, graph.dijkstraDistances("A").get("B"));
     }
 }
