@@ -35,6 +35,10 @@ public class Demo {
         System.out.println("reversed:    " + list);
         System.out.println("removeLast -> " + list.removeLast() + ", list now " + list);
         System.out.println("size=" + list.size() + ", contains(15)=" + list.contains(15));
+        list.clear();
+        System.out.println("clear -> " + list + " (size=" + list.size() + ")");
+        list.addLast(99);
+        System.out.println("usable after clear: " + list);
 
         System.out.println("\n=== DoublyLinkedList ===");
         DoublyLinkedList<Integer> dlist = new DoublyLinkedList<>();
@@ -56,6 +60,10 @@ public class Demo {
         stack.push("first"); stack.push("second"); stack.push("third");
         System.out.println("stack: " + stack);
         System.out.println("pop -> " + stack.pop() + ", peek -> " + stack.peek());
+        stack.clear();
+        System.out.println("clear -> " + stack + " (size=" + stack.size() + ")");
+        stack.push("fresh");
+        System.out.println("usable after clear: " + stack);
 
         System.out.println("\n=== ArrayQueue ===");
         ArrayQueue<String> queue = new ArrayQueue<>();

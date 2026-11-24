@@ -104,6 +104,12 @@ public class SinglyLinkedList<T> {
         head = prev;
     }
 
+    /** Empty the list, dropping every node so it can be collected. */
+    public void clear() {
+        head = null;
+        size = 0;
+    }
+
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 

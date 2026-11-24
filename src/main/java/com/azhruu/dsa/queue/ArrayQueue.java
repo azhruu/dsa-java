@@ -41,6 +41,14 @@ public class ArrayQueue<T> {
         tail = size;
     }
 
+    /** Empty the queue, releasing the stored values for collection. */
+    public void clear() {
+        for (int i = 0; i < size; i++) data[(head + i) % data.length] = null;
+        head = 0;
+        tail = 0;
+        size = 0;
+    }
+
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 

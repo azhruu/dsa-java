@@ -10,9 +10,9 @@
 
 | Area | Structures |
 |---|---|
-| Lists | Singly Linked List (insert / delete / search / reverse, removeFirst / removeLast), Doubly Linked List (forward / backward traversal) |
-| Stacks | Array Stack (dynamic growth), Linked Stack (unbounded) |
-| Queues | Circular Array Queue, Linked Queue (unbounded), Priority Queue (sorted linked list, FIFO within a priority) |
+| Lists | Singly Linked List (insert / delete / search / reverse, removeFirst / removeLast, clear), Doubly Linked List (forward / backward traversal, clear) |
+| Stacks | Array Stack (dynamic growth, clear), Linked Stack (unbounded, clear) |
+| Queues | Circular Array Queue (clear), Linked Queue (unbounded, clear), Priority Queue (sorted linked list, FIFO within a priority, clear) |
 | Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
 | Heaps | Max/Min Heap (insert / extract / peek, contains, clear, O(n) heapify, heap-property check) |
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
@@ -86,7 +86,7 @@ java -cp out com.azhruu.dsa.Demo
 
 Unit-style assertion tests for every structure — no framework, no
 dependencies, just a `main` that checks and reports. Exit code 0
-means all 285 checks passed.
+means all 304 checks passed.
 
 ```bash
 javac -d out $(find src -name "*.java")

@@ -129,6 +129,10 @@ public final class Tests {
         list.reverse();
         eq("reversed", "[15 -> 10]", list.toString());
         eq("size", 2, list.size());
+        list.clear();
+        check("clear empties the list", list.isEmpty() && list.size() == 0);
+        list.addLast(99);
+        eq("usable after clear", "[99]", list.toString());
         SinglyLinkedList<Integer> empty = new SinglyLinkedList<>();
         throwsCheck("removeFirst on empty", IllegalStateException.class, empty::removeFirst);
         throwsCheck("removeLast on empty", IllegalStateException.class, empty::removeLast);
@@ -161,6 +165,11 @@ public final class Tests {
         eq("reversed", "[15 <-> 10]", list.toString());
         eq("reversed backward", "[10 <-> 15]", list.toReverseString());
         eq("size", 2, list.size());
+        list.clear();
+        check("clear empties the list", list.isEmpty() && list.size() == 0);
+        list.addLast(99);
+        eq("usable after clear", "[99]", list.toString());
+        eq("backward usable after clear", "[99]", list.toReverseString());
     }
 
     private static void testArrayStack() {
@@ -186,6 +195,12 @@ public final class Tests {
         boolean lifo = true;
         for (int i = 99; i >= 0; i--) lifo &= big.pop() == i;
         check("100 pushes drain in LIFO order", lifo);
+        big.push(1);
+        big.push(2);
+        big.clear();
+        check("clear empties the stack", big.isEmpty() && big.size() == 0);
+        big.push(7);
+        eq("usable after clear", 7, big.peek());
     }
 
     private static void testLinkedStack() {
@@ -200,6 +215,12 @@ public final class Tests {
         eq("pop order", "b", stack.pop());
         eq("pop order", "a", stack.pop());
         check("empty after pops", stack.isEmpty());
+        stack.push("x");
+        stack.push("y");
+        stack.clear();
+        check("clear empties the stack", stack.isEmpty() && stack.size() == 0);
+        stack.push("z");
+        eq("usable after clear", "z", stack.peek());
         LinkedStack<String> empty = new LinkedStack<>();
         throwsCheck("pop on empty", IllegalStateException.class, empty::pop);
         throwsCheck("peek on empty", IllegalStateException.class, empty::peek);
@@ -234,6 +255,12 @@ public final class Tests {
         boolean fifo = true;
         for (int i = 0; i < 100; i++) fifo &= big.dequeue() == i;
         check("100 enqueues drain in FIFO order", fifo);
+        big.enqueue(1);
+        big.enqueue(2);
+        big.clear();
+        check("clear empties the queue", big.isEmpty() && big.size() == 0);
+        big.enqueue(7);
+        eq("usable after clear", 7, big.peek());
     }
 
     private static void testLinkedQueue() {
@@ -248,6 +275,12 @@ public final class Tests {
         eq("dequeue order", "b", queue.dequeue());
         eq("dequeue order", "c", queue.dequeue());
         check("empty after dequeues", queue.isEmpty());
+        queue.enqueue("x");
+        queue.enqueue("y");
+        queue.clear();
+        check("clear empties the queue", queue.isEmpty() && queue.size() == 0);
+        queue.enqueue("z");
+        eq("usable after clear", "z", queue.peek());
         LinkedQueue<String> empty = new LinkedQueue<>();
         throwsCheck("dequeue on empty", IllegalStateException.class, empty::dequeue);
         throwsCheck("peek on empty", IllegalStateException.class, empty::peek);
@@ -267,6 +300,12 @@ public final class Tests {
         List<String> drain = new ArrayList<>();
         while (!queue.isEmpty()) drain.add(queue.dequeue());
         eq("drain order", Arrays.asList("urgent", "also-urgent", "mid", "low"), drain);
+        queue.enqueue("x", 2);
+        queue.enqueue("y", 1);
+        queue.clear();
+        check("clear empties the queue", queue.isEmpty() && queue.size() == 0);
+        queue.enqueue("z", 5);
+        eq("usable after clear", "z", queue.peek());
         PriorityQueue<String> empty = new PriorityQueue<>();
         throwsCheck("dequeue on empty", IllegalStateException.class, empty::dequeue);
         throwsCheck("peek on empty", IllegalStateException.class, empty::peek);

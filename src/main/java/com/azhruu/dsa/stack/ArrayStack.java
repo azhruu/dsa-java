@@ -32,6 +32,12 @@ public class ArrayStack<T> {
         return (T) data[top - 1];
     }
 
+    /** Empty the stack, releasing the stored values for collection. */
+    public void clear() {
+        for (int i = 0; i < top; i++) data[i] = null;
+        top = 0;
+    }
+
     public int size() { return top; }
     public boolean isEmpty() { return top == 0; }
 

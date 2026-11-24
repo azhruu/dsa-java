@@ -34,6 +34,13 @@ public class LinkedQueue<T> {
         return head.value;
     }
 
+    /** Empty the queue, dropping every node so it can be collected. */
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 
