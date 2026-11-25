@@ -13,7 +13,7 @@
 | Lists | Singly Linked List (insert / delete / search / reverse, removeFirst / removeLast, clear), Doubly Linked List (forward / backward traversal, clear) |
 | Stacks | Array Stack (dynamic growth, clear), Linked Stack (unbounded, clear) |
 | Queues | Circular Array Queue (clear), Linked Queue (unbounded, clear), Priority Queue (sorted linked list, FIFO within a priority, clear) |
-| Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check) |
+| Trees | Binary Search Tree (insert / search / delete, in-order / pre-order / post-order traversals, clear), AVL Tree (self-balancing insert / delete, LL / RR / LR / RL rotations, balance check, clear + rotation-count reset) |
 | Heaps | Max/Min Heap (insert / extract / peek, contains, clear, O(n) heapify, heap-property check) |
 | Hashing | Hash Table with separate chaining (put / get / remove, collision chains, auto-rehash at 0.75 load), Open-Addressing Hash Table with linear probing (probe sequences, tombstone deletes, probe counts, auto-rehash at 0.7 load) |
 | Sorting | Heap Sort (in-place, O(n log n) in every case, ascending / descending, sorted copy, comparison & swap counts), Merge Sort (stable, O(n log n), O(n) extra space), Quick Sort (median-of-three pivot, insertion-sort finish, O(n log n) average), Sorting utilities (one API for merge / quick / heap, sorted copy, deterministic shuffle, timed benchmark) |

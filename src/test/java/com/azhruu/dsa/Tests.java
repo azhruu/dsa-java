@@ -336,6 +336,12 @@ public final class Tests {
         check("delete two-child node (70)", bst.delete(70));
         eq("inOrder after two-child delete", Arrays.asList(40, 50, 60, 80), bst.inOrder());
         check("delete missing returns false", !bst.delete(99));
+        bst.clear();
+        check("clear empties the tree", bst.isEmpty() && bst.size() == 0);
+        check("contains after clear", !bst.contains(40));
+        eq("inOrder after clear", Arrays.asList(), bst.inOrder());
+        bst.insert(99);
+        eq("usable after clear", Arrays.asList(99), bst.inOrder());
         BinarySearchTree<Integer> empty = new BinarySearchTree<>();
         throwsCheck("min on empty", IllegalStateException.class, empty::min);
         throwsCheck("max on empty", IllegalStateException.class, empty::max);
@@ -361,6 +367,12 @@ public final class Tests {
         check("balanced after delete", avl.isBalanced());
         eq("inOrder after delete", Arrays.asList(1, 2, 3, 5, 6, 7), avl.inOrder());
         check("delete missing returns false", !avl.delete(9));
+        avl.clear();
+        check("clear empties the tree", avl.isEmpty() && avl.size() == 0);
+        check("clear resets the rotation count", avl.getRotationCount() == 0);
+        check("empty tree is balanced", avl.isBalanced());
+        avl.insert(99);
+        eq("usable after clear", Arrays.asList(99), avl.inOrder());
     }
 
     private static void testHeap() {

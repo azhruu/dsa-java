@@ -231,6 +231,13 @@ public class AvlTree<T extends Comparable<T>> {
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 
+    /** Empty the tree and reset the rotation count; it can be reused afterwards. */
+    public void clear() {
+        root = null;
+        size = 0;
+        rotations = 0;
+    }
+
     @Override
     public String toString() {
         return inOrder().toString();

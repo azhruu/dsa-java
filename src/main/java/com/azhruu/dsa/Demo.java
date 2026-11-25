@@ -116,6 +116,11 @@ public class Demo {
         bst.delete(50); // two children (root)
         System.out.println("delete root 50:      " + bst.inOrder());
         System.out.println("delete missing 99 -> " + bst.delete(99) + " (size=" + bst.size() + ")");
+        bst.clear();
+        System.out.println("clear -> empty=" + bst.isEmpty() + ", size=" + bst.size()
+                + ", height=" + bst.height() + ", contains(40)=" + bst.contains(40));
+        bst.insert(42);
+        System.out.println("usable after clear: " + bst.inOrder() + " (size=" + bst.size() + ")");
 
         System.out.println("\n=== AvlTree ===");
         // One rotation case each: LL (30,20,10), RR (10,20,30),
@@ -153,6 +158,12 @@ public class Demo {
         System.out.println("after deletes: " + avl.inOrder()
                 + ", height=" + avl.height() + ", balanced=" + avl.isBalanced());
         System.out.println("delete missing 99 -> " + avl.delete(99) + " (size=" + avl.size() + ")");
+        avl.clear();
+        System.out.println("clear -> empty=" + avl.isEmpty() + ", size=" + avl.size()
+                + ", rotations=" + avl.getRotationCount() + ", balanced=" + avl.isBalanced());
+        avl.insert(42);
+        System.out.println("usable after clear: " + avl.inOrder() + " (size=" + avl.size()
+                + ", height=" + avl.height() + ", rotations=" + avl.getRotationCount() + ")");
 
         System.out.println("\n=== MaxHeap ===");
         Heap<Integer> maxHeap = Heap.maxHeap();
