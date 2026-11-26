@@ -439,6 +439,11 @@ public final class Tests {
         for (int i = 0; i < 100; i++) allFound &= table.get("k" + i) == i;
         check("all 100 entries retrievable after rehash", allFound);
         eq("keys() covers every entry", 101, table.keys().size());
+        table.clear();
+        check("clear empties the table", table.isEmpty() && table.size() == 0);
+        check("get after clear", table.get("k0") == null);
+        table.put("fresh", 7);
+        eq("usable after clear", 7, table.get("fresh"));
     }
 
     private static void testOpenAddressingHashTable() {
@@ -466,6 +471,13 @@ public final class Tests {
         for (int i = 0; i < 100; i++) allFound &= table.get("k" + i) == i;
         check("all 100 entries retrievable after rehash", allFound);
         eq("keys() covers every entry", 101, table.keys().size());
+        table.clear();
+        check("clear empties the table", table.isEmpty() && table.size() == 0);
+        check("clear drops tombstones", table.tombstoneCount() == 0);
+        check("clear resets probe count", table.lastProbes() == 0);
+        check("get after clear", table.get("k0") == null);
+        table.put("fresh", 7);
+        eq("usable after clear", 7, table.get("fresh"));
     }
 
     private static void testSorting() {

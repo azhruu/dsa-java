@@ -125,6 +125,13 @@ public class HashTable<K, V> {
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 
+    /** Empty the table, dropping every chain. The bucket array stays the
+     * same size, so the table is reusable straight away. O(capacity). */
+    public void clear() {
+        for (int i = 0; i < buckets.length; i++) buckets[i] = null;
+        size = 0;
+    }
+
     /** Current number of buckets (doubles on every rehash). */
     public int capacity() { return buckets.length; }
 

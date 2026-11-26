@@ -38,3 +38,4 @@ Each item = one complete, tested structure or feature.
 - [x] Graph.clear() + WeightedGraph.clear() (empty the graph, reusable afterwards) — polish, added after the roadmap was complete
 - [x] clear() on every linear structure (SinglyLinkedList, DoublyLinkedList, ArrayStack, LinkedStack, ArrayQueue, LinkedQueue, PriorityQueue — empty it, reusable afterwards) — polish, added after the roadmap was complete
 - [x] BinarySearchTree.clear() + AvlTree.clear() (empty the tree, reusable afterwards; AVL also resets the rotation count) — polish, added after the roadmap was complete
+- [x] HashTable.clear() + OpenAddressingHashTable.clear() (empty the table, reusable afterwards; open addressing also drops tombstones and resets the probe count) — polish, added after the roadmap was complete

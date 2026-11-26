@@ -319,6 +319,11 @@ public class Demo {
         System.out.println("remove(17) -> " + table.remove(17)
                 + ", remove missing 99 -> " + table.remove(99));
         System.out.println("after remove: " + table);
+        table.clear();
+        System.out.println("clear(): isEmpty=" + table.isEmpty()
+                + ", size=" + table.size() + ", " + table);
+        table.put(42, "answer");
+        System.out.println("usable after clear: get(42)=" + table.get(42));
         // 13 entries push the load past 0.75, so the table rehashes 16 -> 32.
         HashTable<String, Integer> grown = new HashTable<>();
         String[] words2 = {"alpha", "bravo", "charlie", "delta", "echo", "foxtrot",
@@ -357,6 +362,13 @@ public class Demo {
                 + ", get(33) still=" + probe.get(33) + " (probes=" + probe.lastProbes() + ")");
         System.out.println("remove missing 99 -> " + probe.remove(99));
         System.out.println("after remove: " + probe);
+        probe.clear();
+        System.out.println("clear(): isEmpty=" + probe.isEmpty()
+                + ", tombstones=" + probe.tombstoneCount()
+                + ", lastProbes=" + probe.lastProbes());
+        probe.put(42, "answer");
+        System.out.println("usable after clear: get(42)=" + probe.get(42)
+                + " (probes=" + probe.lastProbes() + ")");
         // 13 entries push the load past 0.7, so the table rehashes 16 -> 32
         // and the tombstone is dropped in the process.
         OpenAddressingHashTable<String, Integer> grownProbe = new OpenAddressingHashTable<>();

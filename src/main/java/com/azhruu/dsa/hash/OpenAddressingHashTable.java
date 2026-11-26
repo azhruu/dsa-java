@@ -146,6 +146,15 @@ public class OpenAddressingHashTable<K, V> {
     public int size() { return size; }
     public boolean isEmpty() { return size == 0; }
 
+    /** Empty the table, dropping every entry and every tombstone, and
+     * resetting the probe count. The slot array stays the same size,
+     * so the table is reusable straight away. O(capacity). */
+    public void clear() {
+        for (int i = 0; i < slots.length; i++) slots[i] = null;
+        size = 0;
+        lastProbes = 0;
+    }
+
     /** Current number of slots (doubles on every rehash). */
     public int capacity() { return slots.length; }
 
