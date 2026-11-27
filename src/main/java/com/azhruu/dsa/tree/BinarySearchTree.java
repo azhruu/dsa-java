@@ -1,7 +1,9 @@
 package com.azhruu.dsa.tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Binary Search Tree: keys are ordered, so an in-order walk visits them
@@ -137,6 +139,26 @@ public class BinarySearchTree<T extends Comparable<T>> {
         postOrder(node.left, out);
         postOrder(node.right, out);
         out.add(node.value);
+    }
+
+    /**
+     * Level by level, left to right (breadth-first): the root first, then
+     * all its children, then all their children. O(n) time, O(w) extra
+     * space where w is the widest level - the natural order for printing
+     * a tree level by level or serializing it.
+     */
+    public List<T> levelOrder() {
+        List<T> out = new ArrayList<>();
+        if (root == null) return out;
+        Queue<Node<T>> queue = new ArrayDeque<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node<T> node = queue.remove();
+            out.add(node.value);
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+        return out;
     }
 
     /** Height in edges: empty tree is -1, a single node is 0. */

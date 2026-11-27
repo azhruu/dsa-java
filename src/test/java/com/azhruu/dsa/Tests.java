@@ -323,6 +323,7 @@ public final class Tests {
         eq("inOrder is sorted", Arrays.asList(20, 30, 40, 50, 60, 70, 80), bst.inOrder());
         eq("preOrder", Arrays.asList(50, 30, 20, 40, 70, 60, 80), bst.preOrder());
         eq("postOrder", Arrays.asList(20, 40, 30, 60, 80, 70, 50), bst.postOrder());
+        eq("levelOrder", Arrays.asList(50, 30, 70, 20, 40, 60, 80), bst.levelOrder());
         // Height counts edges: a single node is 0, this tree is 2.
         eq("height", 2, bst.height());
         eq("min", 20, bst.min());
@@ -343,6 +344,7 @@ public final class Tests {
         bst.insert(99);
         eq("usable after clear", Arrays.asList(99), bst.inOrder());
         BinarySearchTree<Integer> empty = new BinarySearchTree<>();
+        eq("levelOrder on empty tree", Arrays.asList(), empty.levelOrder());
         throwsCheck("min on empty", IllegalStateException.class, empty::min);
         throwsCheck("max on empty", IllegalStateException.class, empty::max);
         throwsCheck("insert null", IllegalArgumentException.class, () -> bst.insert(null));

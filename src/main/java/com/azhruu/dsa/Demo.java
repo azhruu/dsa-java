@@ -105,6 +105,8 @@ public class Demo {
         System.out.println("in-order:  " + bst.inOrder());
         System.out.println("pre-order: " + bst.preOrder());
         System.out.println("post-order:" + bst.postOrder());
+        System.out.println("level-order:" + bst.levelOrder()
+                + " (breadth-first: root, then each level left to right)");
         System.out.println("min=" + bst.min() + ", max=" + bst.max()
                 + ", height=" + bst.height() + ", size=" + bst.size());
         System.out.println("contains(35)=" + bst.contains(35) + ", contains(99)=" + bst.contains(99));
