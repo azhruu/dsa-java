@@ -151,6 +151,7 @@ public class Demo {
                 + ", balanced=" + avl.isBalanced()
                 + ", rotations=" + avl.getRotationCount());
         System.out.println("in-order:  " + avl.inOrder());
+        System.out.println("level-order: " + avl.levelOrder());
         System.out.println("min=" + avl.min() + ", max=" + avl.max()
                 + ", contains(50)=" + avl.contains(50) + ", contains(55)=" + avl.contains(55));
         System.out.println("duplicate insert(50) -> " + avl.insert(50) + " (size=" + avl.size() + ")");
